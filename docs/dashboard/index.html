@@ -153,7 +153,7 @@
         </div>
         <div class="metric-card">
             <div class="metric-label">新增技能</div>
-            <div class="metric-value" style="color: var(--success)">+2</div>
+            <div class="metric-value" style="color: var(--success)">+3</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
@@ -248,6 +248,15 @@
             </tr>
         
             <tr>
+                <td><strong>heartbeat</strong></td>
+                <td><span class="version">v1.0.0</span></td>
+                <td><span class="badge badge-new">新增</span></td>
+                <td>初始版本：心跳机制脚本，30分钟检查一次自驱动任务</td>
+                <td>2026-02-27</td>
+                <td><span class="badge badge-active">活跃</span></td>
+            </tr>
+        
+            <tr>
                 <td><strong>feishu-doc</strong></td>
                 <td><span class="version">v0.1.0</span></td>
                 <td><span class="badge badge-pending">未使用</span></td>
@@ -293,6 +302,14 @@
                             <td><span class="badge" style="background: #FEE2E2; color: #DC2626;">高</span></td>
                             <td>增加URL验证步骤，部署失败时自动切换Vercel备用</td>
                             <td><span class="version" style="color: #DC2626; font-weight: 700;">P0</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>heartbeat</strong></td>
+                            <td>心跳机制刚创建，未验证实际效果</td>
+                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                            <td>观察24小时运行情况，调整空闲阈值（当前30分钟）</td>
+                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
                         </tr>
                     
                         <tr>
