@@ -6,7 +6,6 @@
     <title>小桂有数 | Data Agent 行业情报</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
@@ -14,14 +13,7 @@
             min-height: 100vh;
             color: #1a1a2e;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-        
-        /* Header */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -31,40 +23,10 @@
             margin-bottom: 32px;
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
         }
-        
-        .brand {
-            font-size: 14px;
-            letter-spacing: 4px;
-            color: #e94560;
-            margin-bottom: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        
-        .title {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .subtitle {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 24px;
-        }
-        
-        .description {
-            font-size: 14px;
-            color: #888;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Latest Report Card */
+        .brand { font-size: 14px; letter-spacing: 4px; color: #e94560; margin-bottom: 16px; font-weight: 700; text-transform: uppercase; }
+        .title { font-size: 48px; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { font-size: 18px; color: #666; margin-bottom: 24px; }
+        .description { font-size: 14px; color: #888; line-height: 1.8; max-width: 600px; margin: 0 auto; }
         .latest-section {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -72,230 +34,55 @@
             margin-bottom: 24px;
             box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
         }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .section-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-        
-        .latest-card {
-            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-            border-radius: 16px;
-            padding: 24px;
-            border: 2px solid #e94560;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .latest-card::before {
-            content: '最新';
-            position: absolute;
-            top: 12px;
-            right: -28px;
-            background: #e94560;
-            color: white;
-            padding: 4px 32px;
-            font-size: 12px;
-            font-weight: 600;
-            transform: rotate(45deg);
-        }
-        
-        .latest-date {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-        
-        .latest-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 12px;
-        }
-        
-        .latest-summary {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-        
-        .btn-primary {
-            display: inline-block;
-            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
-        }
-        
-        /* Archive Section */
-        .archive-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
-        }
-        
-        .archive-list {
-            list-style: none;
-        }
-        
-        .archive-item {
-            padding: 16px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .archive-item:last-child {
-            border-bottom: none;
-        }
-        
-        .archive-date {
-            font-size: 14px;
-            color: #888;
-        }
-        
-        .archive-title {
-            font-size: 15px;
-            color: #333;
-            flex: 1;
-            margin-left: 16px;
-        }
-        
-        .archive-link {
-            color: #e94560;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        
-        /* About Section */
-        .about-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
-        }
-        
-        .about-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.8;
-        }
-        
-        .about-text p {
-            margin-bottom: 12px;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 13px;
-        }
-        
-        .footer a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-        }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .section-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+        .latest-card { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border-radius: 16px; padding: 24px; border: 2px solid #e94560; position: relative; overflow: hidden; }
+        .latest-card::before { content: '最新'; position: absolute; top: 12px; right: -28px; background: #e94560; color: white; padding: 4px 32px; font-size: 12px; font-weight: 600; transform: rotate(45deg); }
+        .latest-date { font-size: 14px; color: #888; margin-bottom: 8px; }
+        .latest-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+        .latest-summary { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+        .btn-primary { display: inline-block; background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .archive-section { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1); }
+        .archive-list { list-style: none; }
+        .archive-item { padding: 16px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .archive-item:last-child { border-bottom: none; }
+        .archive-date { font-size: 14px; color: #888; }
+        .archive-title { font-size: 15px; color: #333; flex: 1; margin-left: 16px; }
+        .archive-link { color: #e94560; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .footer { text-align: center; padding: 40px 20px; color: rgba(255, 255, 255, 0.8); font-size: 13px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <div class="brand">Data Agent Intelligence</div>
             <h1 class="title">小桂有数</h1>
             <p class="subtitle">Data Agent 行业情报速递</p>
-            <p class="description">
-                聚焦 Data Agent 与 AI 大模型的商业落地与投资机会。<br>
-                每日精选 S级信源（官方/投研），提供可执行的战略洞察。
-            </p>
+            <p class="description">聚焦 Data Agent 与 AI 大模型的商业落地与投资机会。<br>每日精选 S级信源（官方/投研），提供可执行的战略洞察。</p>
         </header>
         
-        <!-- Latest Report -->
         <section class="latest-section">
-            <h2 class="section-title">
-                <div class="section-icon">📊</div>
-                今日速递
-            </h2>
+            <h2 class="section-title"><div class="section-icon">📊</div>今日速递</h2>
             <div class="latest-card">
                 <div class="latest-date">2026年2月27日</div>
                 <div class="latest-title">中国AI模型调用量首超美国</div>
-                <div class="latest-summary">
-                    2月三周大涨127%，MiniMax M2.5、Kimi K2.5等国产模型集群式崛起，
-                    Token经济进入"燃料+成果"新阶段...
-                </div>
-                <a href="./reports/20260227/data_agent_express_20260227164943.html" class="btn-primary">阅读完整报告</a>
+                <div class="latest-summary">2月三周大涨127%，MiniMax M2.5、Kimi K2.5等国产模型集群式崛起...</div>
+                <a href="./data_agent_express_20260227171000.html" class="btn-primary">阅读完整报告</a>
             </div>
         </section>
         
-        <!-- Archive -->
         <section class="archive-section">
-            <h2 class="section-title">
-                <div class="section-icon">📁</div>
-                历史速递
-            </h2>
+            <h2 class="section-title"><div class="section-icon">📁</div>历史速递</h2>
             <ul class="archive-list">
                 <li class="archive-item">
                     <span class="archive-date">2026-02-27</span>
                     <span class="archive-title">中国AI模型调用量首超美国</span>
-                    <a href="./reports/20260227/data_agent_express_20260227164943.html" class="archive-link">查看 →</a>
+                    <a href="./data_agent_express_20260227171000.html" class="archive-link">查看 →</a>
                 </li>
             </ul>
         </section>
         
-        <!-- About -->
-        <section class="about-section">
-            <h2 class="section-title">
-                <div class="section-icon">ℹ️</div>
-                关于
-            </h2>
-            <div class="about-text">
-                <p><strong>信息源等级：</strong></p>
-                <p>• S级：官方发布、投研报告（OpenRouter、a16z、公司官方等）</p>
-                <p>• A级：权威科技媒体（机器之心、量子位、36氪等）</p>
-                <p>• B级：专业社区（Papers With Code、Reddit等）</p>
-                <br>
-                <p><strong>更新频率：</strong>每日 07:00（北京时间）</p>
-                <p><strong>命名规范：</strong>data_agent_express_YYYYMMDDhhmmss</p>
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer class="footer">
-            <p>小桂有数 · Data Agent 行业情报</p>
-            <p>Powered by <a href="https://github.com/fxg0110/home" target="_blank">GitHub Pages</a></p>
-        </footer>
+        <footer class="footer"><p>小桂有数 · Data Agent 行业情报</p></footer>
     </div>
 </body>
 </html>
