@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Agent Express | 2026年2月27日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --mck-blue: #051C2C;
+            --mck-light-blue: #2251FF;
+            --mck-gray: #6B7280;
+            --mck-light-gray: #F3F4F6;
+            --mck-border: #E5E7EB;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #fff;
+            color: var(--mck-blue);
+            line-height: 1.5;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        .header {
+            background: var(--mck-blue);
+            color: white;
+            padding: 16px 20px;
+        }
+        .brand {
+            font-size: 11px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .date-line {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+        .exec-summary {
+            background: var(--mck-light-gray);
+            padding: 16px 20px;
+            border-left: 3px solid var(--mck-light-blue);
+        }
+        .exec-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--mck-gray);
+            margin-bottom: 8px;
+        }
+        .exec-text {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--mck-border);
+            border-top: 1px solid var(--mck-border);
+            border-bottom: 1px solid var(--mck-border);
+        }
+        .metric {
+            background: white;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--mck-light-blue);
+            line-height: 1.2;
+        }
+        .metric-label {
+            font-size: 10px;
+            color: var(--mck-gray);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .section {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--mck-border);
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--mck-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--mck-light-gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--mck-light-gray);
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .news-source {
+            font-size: 10px;
+            color: var(--mck-gray);
+            margin-bottom: 4px;
+        }
+        .tier {
+            display: inline-block;
+            background: var(--mck-blue);
+            color: white;
+            padding: 1px 4px;
+            font-size: 9px;
+            margin-left: 4px;
+        }
+        .news-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--mck-blue);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .news-desc {
+            font-size: 12px;
+            color: var(--mck-gray);
+            line-height: 1.5;
+        }
+        .highlight {
+            background: #FEF3C7;
+            padding: 1px 3px;
+            font-weight: 600;
+        }
+        .insight-box {
+            background: var(--mck-blue);
+            color: white;
+            padding: 16px 20px;
+            margin: 0;
+        }
+        .insight-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #60A5FA;
+            margin-bottom: 8px;
+        }
+        .insight-text {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .footer {
+            padding: 12px 20px;
+            background: var(--mck-light-gray);
+            font-size: 10px;
+            color: var(--mck-gray);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="brand">DATA AGENT INTELLIGENCE</div>
+        <div class="title">行业情报速递</div>
+        <div class="date-line">{{DATE}}</div>
+    </header>
+    
+    <section class="exec-summary">
+        <div class="exec-label">执行摘要</div>
+        <div class="exec-text">中国AI模型调用量历史性首超美国，标志着全球AI算力中心东移。MiniMax M2.5、Kimi K2.5等国产模型集群式崛起，Token经济进入'燃料+成果'新阶段。</div>
+    </section>
+    
+    <section class="metrics">
+        
+        <div class="metric">
+            <div class="metric-value">5.16T</div>
+            <div class="metric-label">中国周Token调用量</div>
+        </div>
+    
+        <div class="metric">
+            <div class="metric-value">+127%</div>
+            <div class="metric-label">三周增长率</div>
+        </div>
+    
+        <div class="metric">
+            <div class="metric-value">4/5</div>
+            <div class="metric-label">全球前五中国占比</div>
+        </div>
+    
+        <div class="metric">
+            <div class="metric-value">370x</div>
+            <div class="metric-label">5年增长预期</div>
+        </div>
+    
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">◆</div>市场动态</div>
+        
+        <div class="news-item">
+            <div class="news-source">OpenRouter / SCMP <span class="tier">S</span></div>
+            <div class="news-title">中国AI模型调用量历史性首超美国</div>
+            <div class="news-desc">2月9-15日中国模型以<span class='highlight'>4.12万亿Token</span>首次超越美国2.94万亿；16-22日进一步冲高至<span class='highlight'>5.16万亿</span>，三周大涨127%。</div>
+        </div>
+    
+        <div class="news-item">
+            <div class="news-source">a16z <span class="tier">S</span></div>
+            <div class="news-title">企业AI从工具向神经系统演进</div>
+            <div class="news-desc">a16z 2026年预测指出，AI将完成从独立工具到企业编排层的质变。<span class='highlight'>商业模式强化型AI</span>展现出更强的竞争优势。</div>
+        </div>
+    
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">▲</div>技术突破</div>
+        
+        <div class="news-item">
+            <div class="news-source">MiniMax 官方 <span class="tier">S</span></div>
+            <div class="news-title">M2.5登顶全球调用量，专为Agent场景设计</div>
+            <div class="news-desc">2月13日发布的M2.5上线不足一周迅速登顶。<span class='highlight'>输入价格0.3美元/百万Token</span>，仅为Claude Opus 4.6的1/16。</div>
+        </div>
+    
+        <div class="news-item">
+            <div class="news-source">月之暗面 官方 <span class="tier">S</span></div>
+            <div class="news-title">Kimi K2.5：20天收入超2025全年</div>
+            <div class="news-desc">1月27日发布的K2.5能调度<span class='highlight'>100个Agent分身</span>并行工作，复杂任务处理效率提升3-10倍。</div>
+        </div>
+    
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">●</div>商业落地</div>
+        
+        <div class="news-item">
+            <div class="news-source">阿里云 / 量子位 <span class="tier">A</span></div>
+            <div class="news-title">Coding Plan上线：四大模型一键切换</div>
+            <div class="news-desc">2月25日阿里云百炼推出Qwen3.5、GLM-5、MiniMax M2.5、Kimi K2.5四大开源模型API服务，实现<span class='highlight'>多模型动态切换</span>。</div>
+        </div>
+    
+        <div class="news-item">
+            <div class="news-source">IDC / Gartner <span class="tier">S</span></div>
+            <div class="news-title">2026年50%中国500强使用AI Agent</div>
+            <div class="news-desc">数据工程Agent将成为企业数据准备和分析的主要工具。<span class='highlight'>商业模式从按座位收费转向燃料+成果</span>。</div>
+        </div>
+    
+    </section>
+    
+    <div class="insight-box">
+        <div class="insight-label">Strategic Insight</div>
+        <div class="insight-text">中国AI产业迎来历史性拐点——Token调用量首次超越美国，标志着从'AI应用跟随者'转变为'全球算力中心'。这一转变的底层逻辑是：成本优势（不到美国1/10）+ MoE架构创新 + 垂直整合（通义-云-芯）构成核心竞争力。对于投资者而言，关注焦点应从'哪家模型最强'转向'Token经济下的基础设施'和'Agent编排能力'。未来五年Token消耗量或增长370倍，Agent编排能力与私有数据飞轮将成为新护城河。</div>
+    </div>
+    
+    <footer class="footer">
+        信息源等级：S级（官方/投研）| A级（权威媒体）| B级（专业社区）
+    </footer>
+</body>
+</html>
