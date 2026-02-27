@@ -148,22 +148,22 @@
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">3</div>
+            <div class="metric-value" style="color: var(--primary)">9</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">新增技能</div>
-            <div class="metric-value" style="color: var(--success)">+1</div>
+            <div class="metric-value" style="color: var(--success)">+2</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">更新技能</div>
-            <div class="metric-value" style="color: var(--warning)">+0</div>
+            <div class="metric-value" style="color: var(--warning)">+1</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">待统计</div>
+            <div class="metric-value" style="color: var(--primary)">4</div>
             <div class="metric-change">今日</div>
         </div>
     </section>
@@ -185,6 +185,25 @@
     </section>
     
     <!-- Skills Table -->
+    
+    <!-- Today's Summary -->
+    <section class="table-section" style="padding-bottom: 0;">
+        <div class="table-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border: 1px solid #86EFAC;">
+            <div class="table-title" style="color: #059669;">📊 今日工作总结（2026-02-27）</div>
+            <div style="font-size: 13px; line-height: 1.8; color: #374151;">
+                <p><strong>核心成果：</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 12px;">
+                    <li>Data Agent Daily Express 日报系统重构完成（麦肯锡风格、独立URL、GitHub Pages部署）</li>
+                    <li>建立 S/A/B 三级信源体系，提升内容专业度</li>
+                    <li>打通钉钉推送流程，实现封面图+链接卡片推送</li>
+                    <li>创建技能管理仪表板系统，实现版本管理和优化追踪</li>
+                </ul>
+                <p><strong>关键数据：</strong>新增技能 2 个 | 更新技能 1 个 | 推送日报 5 次 | 解决 404 问题 3 次</p>
+                <p><strong>明日计划：</strong>视觉细节优化、自动化流程测试、信源扩展</p>
+            </div>
+        </div>
+    </section>
+    
     <section class="table-section">
         <div class="table-card">
             <div class="table-title">📋 今日技能变更明细</div>
@@ -202,14 +221,120 @@
                 <tbody>
                     
             <tr>
-                <td>skills-v1.0.0.yaml</td>
-                <td><span class="version">v1.0.0</span></td>
-                <td><span class="badge badge-new">新增</span></td>
-                <td>初始版本</td>
-                <td>2026年2月27日</td>
-                <td><span class="badge badge-active">✅ 活跃</span></td>
+                <td><strong>data-agent-daily</strong></td>
+                <td><span class="version">v2.0.0</span></td>
+                <td><span class="badge badge-update">更新</span></td>
+                <td>重构：麦肯锡风格模板、GitHub Pages部署、独立URL机制、16:9封面图</td>
+                <td>2026-02-27</td>
+                <td><span class="badge badge-active">活跃</span></td>
             </tr>
         
+            <tr>
+                <td><strong>oss-uploader</strong></td>
+                <td><span class="version">v1.0.0</span></td>
+                <td><span class="badge badge-new">新增</span></td>
+                <td>初始版本：阿里云OSS上传工具，支持Content-Type设置</td>
+                <td>2026-02-27</td>
+                <td><span class="badge badge-active">活跃</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>skill-dashboard</strong></td>
+                <td><span class="version">v1.0.0</span></td>
+                <td><span class="badge badge-new">新增</span></td>
+                <td>初始版本：技能管理仪表板，4核心指标+变更明细</td>
+                <td>2026-02-27</td>
+                <td><span class="badge badge-active">活跃</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>feishu-doc</strong></td>
+                <td><span class="version">v0.1.0</span></td>
+                <td><span class="badge badge-pending">未使用</span></td>
+                <td>已安装但未实际使用，待评估是否需要</td>
+                <td>2026-02-14</td>
+                <td><span class="badge badge-pending">待评估</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>feishu-drive</strong></td>
+                <td><span class="version">v0.1.0</span></td>
+                <td><span class="badge badge-pending">未使用</span></td>
+                <td>已安装但未实际使用，待评估是否需要</td>
+                <td>2026-02-14</td>
+                <td><span class="badge badge-pending">待评估</span></td>
+            </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    
+    <!-- Optimization Opportunities -->
+    <section class="table-section" style="padding-top: 0;">
+        <div class="table-card" style="border-left: 4px solid #DC2626;">
+            <div class="table-title" style="color: #DC2626;">🔧 技能潜在优化机会点</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">技能</th>
+                        <th style="width: 25%;">问题/机会</th>
+                        <th style="width: 10%;">影响</th>
+                        <th style="width: 40%;">解决方案</th>
+                        <th style="width: 10%;">优先级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            <td><strong>data-agent-daily</strong></td>
+                            <td>GitHub Pages部署延迟</td>
+                            <td><span class="badge" style="background: #FEE2E2; color: #DC2626;">高</span></td>
+                            <td>增加URL验证步骤，部署失败时自动切换Vercel备用</td>
+                            <td><span class="version" style="color: #DC2626; font-weight: 700;">P0</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>data-agent-daily</strong></td>
+                            <td>封面图生成依赖Puppeteer</td>
+                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                            <td>改用HTML+CSS直接渲染，减少依赖</td>
+                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>dingtalk-push</strong></td>
+                            <td>封面图偶尔404</td>
+                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                            <td>推送前强制验证图片可访问性，失败时重试</td>
+                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>skill-dashboard</strong></td>
+                            <td>图表区域为占位符</td>
+                            <td><span class="badge" style="background: #E0E7FF; color: #4F46E5;">低</span></td>
+                            <td>接入真实数据，使用Chart.js渲染</td>
+                            <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>全局</strong></td>
+                            <td>技能版本管理混乱</td>
+                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                            <td>建立统一的VERSION文件规范，自动化版本升级</td>
+                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>全局</strong></td>
+                            <td>缺乏技能使用统计</td>
+                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                            <td>增加调用日志，统计每日技能使用频率</td>
+                            <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
+                        </tr>
+                    
                 </tbody>
             </table>
         </div>
