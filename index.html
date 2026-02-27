@@ -3,350 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小桂有数 | Data Agent 行业速递</title>
+    <title>小桂有数 | Data Agent 行业情报</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
             background-attachment: fixed;
-            padding: 32px 24px;
-            color: #1a1a2e;
-            line-height: 1.6;
             min-height: 100vh;
-        }
-        
-        /* 背景装饰 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(99, 102, 241, 0.2) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 0;
+            color: #1a1a2e;
         }
         
         .container {
-            max-width: 720px;
+            max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            padding: 40px 24px;
         }
         
-        /* Header - 玻璃拟态 */
+        /* Header */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            padding: 40px 32px;
+            padding: 48px 32px;
             text-align: center;
-            margin-bottom: 24px;
-            box-shadow: 
-                0 8px 32px rgba(31, 38, 135, 0.15),
-                0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(255, 255, 255, 0.1) 50%,
-                transparent 70%
-            );
-            animation: shimmer 6s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
         }
         
         .brand {
-            font-size: 22px;
-            letter-spacing: 6px;
+            font-size: 14px;
+            letter-spacing: 4px;
             color: #e94560;
             margin-bottom: 16px;
             font-weight: 700;
             text-transform: uppercase;
-            position: relative;
         }
         
         .title {
-            font-size: 44px;
+            font-size: 48px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
         }
         
         .subtitle {
-            font-size: 22px;
-            color: #666;
-            margin-bottom: 16px;
-        }
-        
-        .date-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 20px;
             font-size: 18px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            color: #666;
+            margin-bottom: 24px;
         }
         
-        /* Section 卡片 */
-        .section {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
+        .description {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Latest Report Card */
+        .latest-section {
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 28px;
-            margin-bottom: 20px;
-            box-shadow: 
-                0 4px 20px rgba(31, 38, 135, 0.1),
-                0 1px 3px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-        }
-        
-        /* 重点导读 - 特殊样式 */
-        .highlight-section {
-            background: linear-gradient(135deg, rgba(255, 248, 240, 0.95) 0%, rgba(255, 245, 238, 0.95) 100%);
-            border-left: 4px solid #ff9500;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
         }
         
         .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a1a2e;
+            gap: 12px;
         }
         
         .section-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            font-size: 20px;
+            color: white;
+            font-size: 18px;
         }
         
-        .highlight-section .section-icon {
-            background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
-        }
-        
-        .headline-section .section-icon {
-            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
-        }
-        
-        .bigtech-section .section-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .models-section .section-icon {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-        
-        .insight-section .section-icon {
-            background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%);
-        }
-        
-        /* 重点列表 */
-        .highlight-list {
-            list-style: none;
-        }
-        
-        .highlight-list li {
-            font-size: 20px;
-            padding: 18px 0;
-            padding-left: 40px;
-            position: relative;
-            color: #333;
-            border-bottom: 1px dashed rgba(0,0,0,0.08);
-            line-height: 1.9;
-        }
-        
-        .highlight-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .highlight-list li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #ff9500;
-            font-weight: bold;
-            font-size: 22px;
-        }
-        
-        /* 头条卡片 - 3D效果 */
-        .headline-grid {
-            display: grid;
-            gap: 16px;
-        }
-        
-        .headline-card {
+        .latest-card {
             background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
             border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(233, 69, 96, 0.2);
-            box-shadow: 
-                0 4px 15px rgba(233, 69, 96, 0.08),
-                0 2px 4px rgba(0, 0, 0, 0.04);
+            padding: 24px;
+            border: 2px solid #e94560;
             position: relative;
             overflow: hidden;
         }
         
-        .headline-card::before {
-            content: '';
+        .latest-card::before {
+            content: '最新';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #e94560 0%, #ff6b6b 100%);
-        }
-        
-        .headline-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(233, 69, 96, 0.05) 0%, transparent 70%);
-        }
-        
-        .news-source {
-            font-size: 18px;
-            color: #e94560;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .source-tier {
-            display: inline-block;
-            background: #051C2C;
+            top: 12px;
+            right: -28px;
+            background: #e94560;
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 32px;
             font-size: 12px;
-            margin-left: 8px;
             font-weight: 600;
+            transform: rotate(45deg);
         }
         
-        .highlight-num {
-            background: #FEF3C7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 700;
-            color: #92400E;
+        .latest-date {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
         }
         
-        .news-title {
+        .latest-title {
             font-size: 22px;
             font-weight: 700;
             color: #1a1a2e;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-        
-        .news-desc {
-            font-size: 20px;
-            color: #555;
-            line-height: 2;
-        }
-        
-        /* 列表项 */
-        .news-item {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            position: relative;
-        }
-        
-        .news-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        
-        .news-item:first-child {
-            padding-top: 0;
-        }
-        
-        .news-item .news-source {
-            display: inline-block;
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-size: 18px;
-            margin-bottom: 6px;
-        }
-        
-        /* Insight - 深色卡片 */
-        .insight-box {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
-            color: #fff;
-            padding: 24px;
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .insight-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #e94560 0%, #ff6b6b 50%, #f093fb 100%);
-        }
-        
-        .insight-label {
-            font-size: 20px;
-            color: #e94560;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             margin-bottom: 12px;
-            font-weight: 700;
         }
         
-        .insight-text {
-            font-size: 20px;
-            line-height: 2;
-            color: rgba(255, 255, 255, 0.9);
+        .latest-summary {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        }
+        
+        /* Archive Section */
+        .archive-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
+        }
+        
+        .archive-list {
+            list-style: none;
+        }
+        
+        .archive-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .archive-item:last-child {
+            border-bottom: none;
+        }
+        
+        .archive-date {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .archive-title {
+            font-size: 15px;
+            color: #333;
+            flex: 1;
+            margin-left: 16px;
+        }
+        
+        .archive-link {
+            color: #e94560;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
+        }
+        
+        .about-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 12px;
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            padding: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 18px;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
         }
     </style>
 </head>
@@ -354,115 +233,68 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="brand">DATA AGENT DAILY EXPRESS</div>
+            <div class="brand">Data Agent Intelligence</div>
             <h1 class="title">小桂有数</h1>
-            <p class="subtitle">追踪数据智能体领域的最新前沿动态</p>
-            <div class="date-badge">2026年2月27日</div>
+            <p class="subtitle">Data Agent 行业情报速递</p>
+            <p class="description">
+                聚焦 Data Agent 与 AI 大模型的商业落地与投资机会。<br>
+                每日精选 S级信源（官方/投研），提供可执行的战略洞察。
+            </p>
         </header>
         
-        <!-- Highlights -->
-        <section class="section highlight-section">
-            <div class="section-title">
-                <div class="section-icon">★</div>
-                <span>今日焦点</span>
+        <!-- Latest Report -->
+        <section class="latest-section">
+            <h2 class="section-title">
+                <div class="section-icon">📊</div>
+                今日速递
+            </h2>
+            <div class="latest-card">
+                <div class="latest-date">2026年2月27日</div>
+                <div class="latest-title">中国AI模型调用量首超美国</div>
+                <div class="latest-summary">
+                    2月三周大涨127%，MiniMax M2.5、Kimi K2.5等国产模型集群式崛起，
+                    Token经济进入"燃料+成果"新阶段...
+                </div>
+                <a href="./reports/20260227/data_agent_express_20260227164943.html" class="btn-primary">阅读完整报告</a>
             </div>
-            <ul class="highlight-list">
-                <li>中国AI模型调用量首超美国，2月三周大涨<span class='highlight-num'>127%</span></li>
-<li>OpenRouter全球前五中国占四席：MiniMax M2.5、Kimi K2.5、GLM-5、DeepSeek</li>
-<li>MiniMax M2.5上线不足一周登顶调用量榜首，贡献<span class='highlight-num'>4.6万亿</span>Token</li>
-<li>阿里云Coding Plan：四大模型API一键切换，打破单一模型锁定</li>
+        </section>
+        
+        <!-- Archive -->
+        <section class="archive-section">
+            <h2 class="section-title">
+                <div class="section-icon">📁</div>
+                历史速递
+            </h2>
+            <ul class="archive-list">
+                <li class="archive-item">
+                    <span class="archive-date">2026-02-27</span>
+                    <span class="archive-title">中国AI模型调用量首超美国</span>
+                    <a href="./reports/20260227/data_agent_express_20260227164943.html" class="archive-link">查看 →</a>
+                </li>
             </ul>
         </section>
         
-        <!-- Headlines -->
-        <section class="section headline-section">
-            <div class="section-title">
-                <div class="section-icon">●</div>
-                <span>行业实践</span>
-            </div>
-            <div class="headline-grid">
-                
-        <div class="headline-card">
-            <div class="news-source">OpenRouter / SCMP <span class="source-tier">S</span></div>
-            <div class="news-title">中国AI模型调用量历史性首超美国</div>
-            <div class="news-desc">2月9-15日中国模型以<span class='highlight-num'>4.12万亿Token</span>首次超越美国2.94万亿；16-22日进一步冲高至<span class='highlight-num'>5.16万亿</span>，三周大涨127%。全球前五中国占四席，标志着全球AI算力中心东移。</div>
-        </div>
-    
-
-        <div class="headline-card">
-            <div class="news-source">a16z <span class="source-tier">S</span></div>
-            <div class="news-title">企业AI从工具向神经系统演进</div>
-            <div class="news-desc">a16z 2026年预测指出，AI将完成从独立工具到企业编排层的质变。<span class='highlight-num'>商业模式强化型AI</span>相比成本节约型AI展现出更强的竞争优势，Data Agent成为企业数据准备和分析的主要工具。</div>
-        </div>
-    
+        <!-- About -->
+        <section class="about-section">
+            <h2 class="section-title">
+                <div class="section-icon">ℹ️</div>
+                关于
+            </h2>
+            <div class="about-text">
+                <p><strong>信息源等级：</strong></p>
+                <p>• S级：官方发布、投研报告（OpenRouter、a16z、公司官方等）</p>
+                <p>• A级：权威科技媒体（机器之心、量子位、36氪等）</p>
+                <p>• B级：专业社区（Papers With Code、Reddit等）</p>
+                <br>
+                <p><strong>更新频率：</strong>每日 07:00（北京时间）</p>
+                <p><strong>命名规范：</strong>data_agent_express_YYYYMMDDhhmmss</p>
             </div>
         </section>
         
-        <!-- Big Tech -->
-        <section class="section bigtech-section">
-            <div class="section-title">
-                <div class="section-icon">▲</div>
-                <span>前沿能力</span>
-            </div>
-            
-        <div class="news-item">
-            <div class="news-source">MiniMax 官方 <span class="source-tier">S</span></div>
-            <div class="news-title">M2.5登顶全球调用量，专为Agent场景设计</div>
-            <div class="news-desc">2月13日发布的M2.5上线不足一周迅速登顶。通过大规模强化学习实现极高的成本效率，<span class='highlight-num'>输入价格0.3美元/百万Token</span>，仅为Claude Opus 4.6的1/16。</div>
-        </div>
-    
-
-        <div class="news-item">
-            <div class="news-source">月之暗面 官方 <span class="source-tier">S</span></div>
-            <div class="news-title">Kimi K2.5：20天收入超2025全年</div>
-            <div class="news-desc">1月27日发布的K2.5能调度<span class='highlight-num'>100个Agent分身</span>并行工作，复杂任务处理效率提升3-10倍。发布不到一个月累计收入已超2025年全年。</div>
-        </div>
-    
-
-        <div class="news-item">
-            <div class="news-source">智谱 官方 <span class="source-tier">S</span></div>
-            <div class="news-title">GLM-5：200K上下文窗口</div>
-            <div class="news-desc">2月12日发布的GLM-5凭借<span class='highlight-num'>200K超长上下文</span>窗口和对长程Agent任务的深度优化，在BrowseComp、MCP-Atlas等评测中取得开源领域最优表现。</div>
-        </div>
-    
-        </section>
-        
-        <!-- Models -->
-        <section class="section models-section">
-            <div class="section-title">
-                <div class="section-icon">◆</div>
-                <span>模型演进</span>
-            </div>
-            
-        <div class="news-item">
-            <div class="news-source">IDC / Gartner <span class="source-tier">S</span></div>
-            <div class="news-title">2026年50%中国500强使用AI Agent</div>
-            <div class="news-desc">数据工程Agent将成为企业数据准备和分析的主要工具。Token正从互联网'流量'变为AI时代'燃料'，<span class='highlight-num'>商业模式从按座位收费转向燃料+成果</span>。</div>
-        </div>
-    
-
-        <div class="news-item">
-            <div class="news-source">东莞证券 / 财联社 <span class="source-tier">A</span></div>
-            <div class="news-title">Token消耗量年复合增长率330%</div>
-            <div class="news-desc">中国整体日均Token消耗从2024年初1000亿，到2025年中突破30万亿，2026年2月已达<span class='highlight-num'>180万亿</span>级别。预计2025-2030年将实现<span class='highlight-num'>370倍</span>增长。</div>
-        </div>
-    
-        </section>
-        
-        <!-- Insight -->
-        <section class="section insight-section">
-            <div class="section-title">
-                <div class="section-icon">◉</div>
-                <span>今日洞察</span>
-            </div>
-            <div class="insight-box">
-                <div class="insight-label">Insight</div>
-                <p class="insight-text">2026年2月27日，中国AI产业迎来历史性拐点——Token调用量首次超越美国，标志着从'AI应用跟随者'转变为'全球算力中心'。这一转变的底层逻辑是：成本优势（不到美国1/10）+ MoE架构创新 + 垂直整合（通义-云-芯）构成核心竞争力。对于投资者而言，关注焦点应从'哪家模型最强'转向'Token经济下的基础设施'和'Agent编排能力'。未来五年Token消耗量或增长370倍，Agent编排能力与私有数据飞轮将成为新护城河。</p>
-            </div>
-        </section>
-        
+        <!-- Footer -->
         <footer class="footer">
-            小桂有数 · Data Agent 行业速递
+            <p>小桂有数 · Data Agent 行业情报</p>
+            <p>Powered by <a href="https://github.com/fxg0110/home" target="_blank">GitHub Pages</a></p>
         </footer>
     </div>
 </body>
