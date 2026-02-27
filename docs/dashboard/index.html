@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能管理仪表板 | 2026年2月27日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2251FF;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --gray: #6B7280;
+            --bg: #F3F4F6;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: var(--bg);
+            color: #1F2937;
+            line-height: 1.5;
+        }
+        .header {
+            background: linear-gradient(135deg, #051C2C 0%, #0A2942 100%);
+            color: white;
+            padding: 24px 32px;
+        }
+        .header h1 { font-size: 24px; font-weight: 700; }
+        .header .date { font-size: 14px; opacity: 0.7; margin-top: 4px; }
+        
+        /* Metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 24px 32px;
+        }
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .metric-change {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .metric-change.up { color: var(--success); }
+        .metric-change.down { color: var(--danger); }
+        
+        /* Charts */
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 32px 24px;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        /* Table */
+        .table-section {
+            padding: 0 32px 32px;
+        }
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            text-align: left;
+            padding: 12px;
+            background: var(--bg);
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        tr:last-child td { border-bottom: none; }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-new { background: #D1FAE5; color: var(--success); }
+        .badge-update { background: #DBEAFE; color: var(--primary); }
+        .badge-active { background: #D1FAE5; color: var(--success); }
+        .version {
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🛠️ 技能管理仪表板</h1>
+        <div class="date">{{DATE}} | 自动生成</div>
+    </header>
+    
+    <!-- Metrics -->
+    <section class="metrics">
+        <div class="metric-card">
+            <div class="metric-label">总技能数</div>
+            <div class="metric-value" style="color: var(--primary)">3</div>
+            <div class="metric-change">累计部署</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">新增技能</div>
+            <div class="metric-value" style="color: var(--success)">+1</div>
+            <div class="metric-change up">今日</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">更新技能</div>
+            <div class="metric-value" style="color: var(--warning)">+0</div>
+            <div class="metric-change up">今日</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">使用技能</div>
+            <div class="metric-value" style="color: var(--primary)">待统计</div>
+            <div class="metric-change">今日</div>
+        </div>
+    </section>
+    
+    <!-- Charts Placeholder -->
+    <section class="charts">
+        <div class="chart-card">
+            <div class="chart-title">技能使用频率</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">技能增长趋势</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">技能健康度</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
+        </div>
+    </section>
+    
+    <!-- Skills Table -->
+    <section class="table-section">
+        <div class="table-card">
+            <div class="table-title">📋 今日技能变更明细</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>技能名称</th>
+                        <th>版本</th>
+                        <th>类型</th>
+                        <th>变更内容</th>
+                        <th>更新时间</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td>skills-v1.0.0.yaml</td>
+                <td><span class="version">v1.0.0</span></td>
+                <td><span class="badge badge-new">新增</span></td>
+                <td>初始版本</td>
+                <td>2026年2月27日</td>
+                <td><span class="badge badge-active">✅ 活跃</span></td>
+            </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        小桂爷技能管理系统 | 24小时自动监控
+    </footer>
+</body>
+</html>
