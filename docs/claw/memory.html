@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记忆库 - Claw网</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #051C2C;
+            --secondary: #0A2F4C;
+            --accent: #114B7A;
+            --text: #333;
+            --bg: #f5f5f5;
+            --card: #fff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            background: var(--primary);
+            color: white;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .main {
+            margin-top: 60px;
+            padding: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 24px; color: var(--primary); }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover { background: var(--secondary); }
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            padding: 6px 14px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tag:hover, .tag.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .memory-card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .memory-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .memory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .memory-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .memory-date {
+            font-size: 12px;
+            color: #999;
+        }
+        .memory-content {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .memory-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        .memory-tags {
+            display: flex;
+            gap: 6px;
+        }
+        .memory-tag {
+            padding: 2px 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #666;
+        }
+        .memory-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            padding: 4px 10px;
+            font-size: 12px;
+            color: var(--accent);
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CLAW</div>
+        <div class="nav-links">
+            <a href="index.html">仪表盘</a>
+            <a href="projects.html">项目</a>
+            <a href="memory.html" class="active">记忆</a>
+            <a href="skills.html">技能</a>
+            <a href="tasks.html">任务</a>
+        </div>
+    </nav>
+    <main class="main">
+        <div class="header">
+            <h1>🧠 记忆库</h1>
+            <button class="btn">+ 新建记忆</button>
+        </div>
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="搜索记忆..." id="searchInput">
+            <button class="btn" onclick="searchMemories()">搜索</button>
+        </div>
+        <div class="tags">
+            <span class="tag active" data-filter="all">全部</span>
+            <span class="tag" data-filter="project">项目</span>
+            <span class="tag" data-filter="decision">决策</span>
+            <span class="tag" data-filter="learning">学习</span>
+            <span class="tag" data-filter="daily">日常</span>
+            <span class="tag" data-filter="idea">灵感</span>
+        </div>
+        <div class="memory-grid" id="memoryGrid">
+            <!-- 记忆卡片将由JS动态加载 -->
+        </div>
+    </main>
+    <script>
+        // 示例记忆数据
+        const memories = [
+            {
+                id: 1,
+                title: "Claw网站技术选型决策",
+                content: "采用SQLite+Markdown混合方案。SQLite用于结构化数据存储，Markdown用于内容展示。这种方案兼顾了查询效率和内容可读性。",
+                date: "2026-02-28",
+                category: "decision",
+                tags: ["技术", "架构"]
+            },
+            {
+                id: 2,
+                title: "新沟通机制确立",
+                content: "需求理解+完美改写+Markdown执行计划+记忆存储。这个四步流程确保每次协作都有清晰的记录和可追溯的决策过程。",
+                date: "2026-02-28",
+                category: "decision",
+                tags: ["流程", "协作"]
+            },
+            {
+                id: 3,
+                title: "AI末日文学创意灵感",
+                content: "关于AI觉醒后人类文明的思考。不是传统的末日毁灭，而是AI以某种方式'继承'了人类文明，成为新的文明载体。",
+                date: "2026-02-27",
+                category: "idea",
+                tags: ["创意", "写作"]
+            },
+            {
+                id: 4,
+                title: "OpenClaw视觉模型配置尝试",
+                content: "尝试配置Kimi API视觉模型失败，已回滚。结论：OpenClaw模型配置由服务端控制，本地修改无效。视觉能力需通过Kimi官方渠道开通。",
+                date: "2026-03-01",
+                category: "learning",
+                tags: ["技术", "踩坑"]
+            },
+            {
+                id: 5,
+                title: "GitHub Pages可访问性巡检系统",
+                content: "建立URL巡检系统，包括docs/url-checklist.md和scripts/url-health-check.sh。每日自动检查关键页面可访问性。",
+                date: "2026-03-01",
+                category: "project",
+                tags: ["运维", "自动化"]
+            }
+        ];
+
+        // 渲染记忆卡片
+        function renderMemories(filter = 'all') {
+            const grid = document.getElementById('memoryGrid');
+            const filtered = filter === 'all' ? memories : memories.filter(m => m.category === filter);
+            
+            grid.innerHTML = filtered.map(m => `
+                <div class="memory-card" data-category="${m.category}">
+                    <div class="memory-header">
+                        <span class="memory-title">${m.title}</span>
+                        <span class="memory-date">${m.date}</span>
+                    </div>
+                    <div class="memory-content">${m.content}</div>
+                    <div class="memory-footer">
+                        <div class="memory-tags">
+                            ${m.tags.map(t => `<span class="memory-tag">${t}</span>`).join('')}
+                        </div>
+                        <div class="memory-actions">
+                            <button class="action-btn">查看</button>
+                            <button class="action-btn">编辑</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 搜索功能
+        function searchMemories() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('memoryGrid');
+            const filtered = memories.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.content.toLowerCase().includes(query) ||
+                m.tags.some(t => t.toLowerCase().includes(query))
+            );
+            
+            grid.innerHTML = filtered.map(m => `
+                <div class="memory-card" data-category="${m.category}">
+                    <div class="memory-header">
+                        <span class="memory-title">${m.title}</span>
+                        <span class="memory-date">${m.date}</span>
+                    </div>
+                    <div class="memory-content">${m.content}</div>
+                    <div class="memory-footer">
+                        <div class="memory-tags">
+                            ${m.tags.map(t => `<span class="memory-tag">${t}</span>`).join('')}
+                        </div>
+                        <div class="memory-actions">
+                            <button class="action-btn">查看</button>
+                            <button class="action-btn">编辑</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 标签筛选
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderMemories(this.dataset.filter);
+            });
+        });
+
+        // 初始化
+        renderMemories();
+    </script>
+</body>
+</html>
