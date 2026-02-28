@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claw 管理面板</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #051C2C;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #051C2C;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #051C2C;
+        }
+        .item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        .item-name {
+            font-size: 14px;
+            color: #333;
+        }
+        .item-meta {
+            font-size: 12px;
+            color: #666;
+        }
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        .status-ok {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status-error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .status-warn {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #051C2C;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #0A2F4C;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: #051C2C;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Claw 管理面板</h1>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">14</div>
+                <div class="stat-label">记忆文件</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">7</div>
+                <div class="stat-label">技能</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">定时任务</div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <!-- 记忆文件 -->
+            <div class="card">
+                <h2>📝 记忆文件</h2>
+                <div class="item">
+                    <span class="item-name">2026-02-27-conversation.md</span>
+                    <span class="item-meta">2月27日</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">2026-02-28-1344.md</span>
+                    <span class="item-meta">2月28日</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">communication-protocol.md</span>
+                    <span class="item-meta">沟通机制</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">execution-plans/</span>
+                    <span class="item-meta">执行计划目录</span>
+                </div>
+                <a href="https://github.com/fxg0110/home/tree/main/docs" class="btn" target="_blank">查看全部</a>
+            </div>
+            
+            <!-- 技能 -->
+            <div class="card">
+                <h2>🛠️ 技能列表</h2>
+                <div class="item">
+                    <span class="item-name">data-agent-daily</span>
+                    <span class="status status-ok">正常</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">skill-dashboard</span>
+                    <span class="status status-warn">待优化</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">memory</span>
+                    <span class="status status-ok">正常</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">novel-ai-apocalypse</span>
+                    <span class="status status-ok">正常</span>
+                </div>
+                <a href="https://github.com/fxg0110/home/tree/main/docs" class="btn" target="_blank">查看全部</a>
+            </div>
+            
+            <!-- 定时任务 -->
+            <div class="card">
+                <h2>⏰ 定时任务</h2>
+                <div class="item">
+                    <span class="item-name">心跳检查</span>
+                    <span class="status status-ok">每10分钟</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">Data Agent日报</span>
+                    <span class="status status-ok">07:00</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">技能自省</span>
+                    <span class="status status-ok">03:00</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">小说创意升华</span>
+                    <span class="status status-error">配置错误</span>
+                </div>
+                <a href="https://github.com/fxg0110/home/tree/main/docs" class="btn" target="_blank">查看详情</a>
+            </div>
+            
+            <!-- 项目 -->
+            <div class="card">
+                <h2>🚀 项目</h2>
+                <div class="item">
+                    <span class="item-name">Claw网</span>
+                    <span class="status status-warn">开发中</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">AI末日文学</span>
+                    <span class="status status-warn">概念期</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">理财投资</span>
+                    <span class="status status-warn">待启动</span>
+                </div>
+                <a href="https://fxg0110.github.io/home/claw/" class="btn" target="_blank">访问网站</a>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; color: #666; font-size: 12px;">
+            最后更新：2026-02-28 18:23 | Agent: main | 模型: kimi-coding/k2p5
+        </div>
+    </div>
+</body>
+</html>
