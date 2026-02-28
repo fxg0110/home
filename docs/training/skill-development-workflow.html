@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标准化技能开发流程 | 能力教材</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+        h1 { font-size: 28px; margin-bottom: 10px; }
+        .subtitle { opacity: 0.9; font-size: 14px; }
+        .meta {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .meta-item:last-child { border-bottom: none; }
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        h3 {
+            color: #555;
+            font-size: 16px;
+            margin: 20px 0 10px;
+        }
+        .pain-point {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .solution {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .step-num {
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+        .step-title { font-weight: bold; margin-bottom: 5px; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .file-tree {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        .file-tree .comment { color: #75715e; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:hover { background: #f5f5f5; }
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #ffeaa7 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            header { padding: 30px 15px; }
+            h1 { font-size: 24px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>标准化技能开发流程</h1>
+            <p class="subtitle">基于 2026-03-01 协作反思的能力教材</p>
+        </header>
+
+        <div class="meta">
+            <div class="meta-item">
+                <span>教材版本</span>
+                <span>v1.0</span>
+            </div>
+            <div class="meta-item">
+                <span>生成日期</span>
+                <span>2026-03-01</span>
+            </div>
+            <div class="meta-item">
+                <span>适用对象</span>
+                <span>OpenClaw Agent 开发者</span>
+            </div>
+            <div class="meta-item">
+                <span>核心目标</span>
+                <span>提升协作默契度与自驱动能力</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>一、背景与问题</h2>
+            <p>2026-03-01 的协作中，遇到了以下核心问题：</p>
+            
+            <div class="pain-point">
+                <strong>问题 1：多 Agent 配置反复试错</strong><br>
+                尝试 5+ 种方案（WebSocket、独立 Gateway、Profile 模式），均因环境限制失败，浪费大量时间。
+            </div>
+            
+            <div class="pain-point">
+                <strong>问题 2：视觉模型配置无效</strong><br>
+                修改本地配置文件 3 次，均被系统自动重置，未预先验证配置是否可持久化。
+            </div>
+            
+            <div class="pain-point">
+                <strong>问题 3：流程执行不稳定</strong><br>
+                标准流程（需求改写→执行计划→记忆记录）时有时无，导致协作体验不一致。
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>二、核心洞察</h2>
+            
+            <div class="solution">
+                <strong>洞察 1：先验证，再执行</strong><br>
+                任何配置修改前，先验证其持久性。OpenClaw 的模型配置由服务端控制，本地修改无效。
+            </div>
+            
+            <div class="solution">
+                <strong>洞察 2：技能优先于试错</strong><br>
+                今日所有问题都有对应的 skill 可解决（skill-creator、channels-setup），应先学习 skill 而非盲目尝试。
+            </div>
+            
+            <div class="solution">
+                <strong>洞察 3：流程是纪律，不是选项</strong><br>
+                标准流程不是"可选项"，而是保障质量的机制。无论任务大小、时间多晚，必须执行。
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>三、标准化技能开发流程</h2>
+            
+            <div class="process-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">抽象关键任务</div>
+                    <p>从今日工作中提取核心痛点，明确需要解决什么问题。</p>
+                    <p><strong>示例：</strong>多 Agent 隔离失败 → 需要学习正确的 agent 管理方法</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">ClawHub 搜索技能</div>
+                    <p>使用 <code>openclaw skills search</code> 或 <code>npx clawhub</code> 搜索相关技能。</p>
+                    <p><strong>关键技能：</strong></p>
+                    <ul>
+                        <li><code>skill-creator</code> - 创建和管理技能</li>
+                        <li><code>channels-setup</code> - 配置 IM 渠道</li>
+                        <li><code>clawhub</code> - 技能市场管理</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">评估学习价值</div>
+                    <p>判断技能是否能解决当前问题，并带来长期价值。</p>
+                    <table>
+                        <tr>
+                            <th>评估维度</th>
+                            <th>问题</th>
+                            <th>价值</th>
+                        </tr>
+                        <tr>
+                            <td>紧迫性</td>
+                            <td>是否阻塞当前任务？</td>
+                            <td>高</td>
+                        </tr>
+                        <tr>
+                            <td>复用性</td>
+                            <td>未来是否会再次遇到？</td>
+                            <td>高</td>
+                        </tr>
+                        <tr>
+                            <td>深度</td>
+                            <td>是否能提升核心能力？</td>
+                            <td>中</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">学习技能并实践</div>
+                    <p>阅读 SKILL.md，理解核心原理，立即应用于当前任务。</p>
+                    <div class="file-tree">
+skill-creator/
+├── SKILL.md              <span class="comment"># 核心文档（必须阅读）</span>
+├── scripts/
+│   ├── init_skill.py     <span class="comment"># 初始化技能模板</span>
+│   └── package_skill.py  <span class="comment"># 打包技能</span>
+└── references/
+    ├── workflows.md      <span class="comment"># 多步骤流程设计</span>
+    └── output-patterns.md <span class="comment"># 输出格式规范</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <div class="step-title">生成能力教材</div>
+                    <p>将学习成果转化为可复用的 HTML 报告，包含：</p>
+                    <ul>
+                        <li>背景与问题（真实案例）</li>
+                        <li>核心洞察（抽象规律）</li>
+                        <li>标准化流程（可执行步骤）</li>
+                        <li>对比/效果（改进前后）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                    <div class="step-title">发布与推广</div>
+                    <p>部署到网站，推送钉钉，形成知识沉淀。</p>
+                    <p><strong>发布 checklist：</strong></p>
+                    <ul>
+                        <li>✅ GitHub Pages 部署</li>
+                        <li>✅ 巡检验证（HTTP 200）</li>
+                        <li>✅ 钉钉推送（封面+标题+URL）</li>
+                        <li>✅ 更新 MEMORY.md</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>四、技能目录结构规范</h2>
+            <p>基于 skill-creator 最佳实践，标准技能结构如下：</p>
+            
+            <div class="file-tree">
+my-skill/
+├── SKILL.md                    <span class="comment"># 必需：技能说明文档</span>
+│   ├── YAML frontmatter        <span class="comment"># name + description（触发器）</span>
+│   └── Markdown body           <span class="comment"># 使用说明（触发后加载）</span>
+├── scripts/                    <span class="comment"># 可选：可执行脚本</span>
+│   └── example.py
+├── references/                 <span class="comment"># 可选：参考资料</span>
+│   └── details.md
+└── assets/                     <span class="comment"># 可选：模板资源</span>
+    └── template.html
+            </div>
+            
+            <h3>关键原则</h3>
+            <ul>
+                <li><span class="highlight">简洁优先</span>：SKILL.md 控制在 500 行以内</li>
+                <li><span class="highlight">渐进披露</span>：元数据 → SKILL.md → 参考资料</li>
+                <li><span class="highlight">不要冗余</span>：不创建 README.md、CHANGELOG.md 等</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>五、效果对比</h2>
+            <table>
+                <tr>
+                    <th>维度</th>
+                    <th>改进前</th>
+                    <th>改进后</th>
+                </tr>
+                <tr>
+                    <td>试错次数</td>
+                    <td>5+ 次</td>
+                    <td>1 次（按 skill 执行）</td>
+                </tr>
+                <tr>
+                    <td>配置持久性</td>
+                    <td>反复被重置</td>
+                    <td>先验证再执行</td>
+                </tr>
+                <tr>
+                    <td>流程稳定性</td>
+                    <td>时有时无</td>
+                    <td>100% 执行</td>
+                </tr>
+                <tr>
+                    <td>知识沉淀</td>
+                    <td>无</td>
+                    <td>HTML 教材 + 钉钉推送</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>六、下一步行动</h2>
+            <ol>
+                <li><strong>立即执行：</strong>将此教材发布至 GitHub Pages</li>
+                <li><strong>本周内：</strong>为所有现有技能补充 SKILL.md 文档</li>
+                <li><strong>持续：</strong>每次协作后生成能力教材，形成知识库</li>
+            </ol>
+        </div>
+
+        <footer>
+            <p>Generated by OpenClaw Agent | 2026-03-01</p>
+            <p>基于 skill-creator 最佳实践</p>
+        </footer>
+    </div>
+</body>
+</html>
