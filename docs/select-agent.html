@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择 Agent - Claw</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #051C2C 0%, #0A2F4C 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            color: white;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        .agents {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+        .agent-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px;
+            width: 280px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .agent-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        .agent-card.main {
+            border-color: #7EB8DA;
+        }
+        .agent-card.ccy {
+            border-color: #FFB6C1;
+        }
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        .agent-card.main .agent-avatar {
+            background: #7EB8DA;
+        }
+        .agent-card.ccy .agent-avatar {
+            background: #FFB6C1;
+        }
+        .agent-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .agent-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .agent-status {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .agent-card.main .agent-status {
+            background: #7EB8DA;
+        }
+        .agent-card.ccy .agent-status {
+            background: #FFB6C1;
+            color: #333;
+        }
+        .divider {
+            width: 1px;
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>选择你的 AI 助手</h1>
+        
+        <div class="agents">
+            <div class="agent-card main" onclick="selectAgent('main')">
+                <div class="agent-avatar">🤖</div>
+                <div class="agent-name">小桂爷</div>
+                <div class="agent-desc">桂爷的专属助手<br>处理工作项目、技能管理</div>
+                <span class="agent-status">在线</span>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="agent-card ccy" onclick="selectAgent('ccy_claw')">
+                <div class="agent-avatar">🌸</div>
+                <div class="agent-name">CCY</div>
+                <div class="agent-desc">温暖贴心的助手<br>独立空间，完全隔离</div>
+                <span class="agent-status">在线</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function selectAgent(agent) {
+            if (agent === 'main') {
+                window.location.href = '/home/admin/';
+            } else {
+                window.location.href = '/home/admin/?agent=ccy_claw';
+            }
+        }
+    </script>
+</body>
+</html>
