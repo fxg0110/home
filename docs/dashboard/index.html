@@ -148,12 +148,12 @@
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">7</div>
+            <div class="metric-value" style="color: var(--primary)">8</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">新增技能</div>
-            <div class="metric-value" style="color: var(--success)">+2</div>
+            <div class="metric-value" style="color: var(--success)">+0</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
@@ -163,7 +163,7 @@
         </div>
         <div class="metric-card">
             <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">3</div>
+            <div class="metric-value" style="color: var(--primary)">待统计</div>
             <div class="metric-change">今日</div>
         </div>
     </section>
@@ -185,24 +185,6 @@
     </section>
     
     <!-- Skills Table -->
-    
-    <!-- Today's Summary -->
-    <section class="table-section" style="padding-bottom: 0;">
-        <div class="table-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border: 1px solid #86EFAC;">
-            <div class="table-title" style="color: #059669;">📊 今日工作总结（2026-02-27）</div>
-            <div style="font-size: 13px; line-height: 1.8; color: #374151;">
-                <p><strong>核心成果：</strong></p>
-                <ul style="margin-left: 20px; margin-bottom: 12px;">
-                    <li>新增 2 个技能：memory（对话记录保存）、novel-ai-apocalypse（创意管理）</li>
-                    <li>完成每日技能自省定时任务配置（凌晨3点执行）</li>
-                    <li>技能库总数达到 7 个，其中 1 个有完整文档</li>
-                </ul>
-                <p><strong>关键数据：</strong>新增技能 2 个 | 更新技能 0 个 | 使用技能 3 个</p>
-                <p><strong>明日计划：</strong>继续完善仪表板图表功能，评估 feishu-bot 是否继续开发</p>
-            </div>
-        </div>
-    </section>
-    
     <section class="table-section">
         <div class="table-card">
             <div class="table-title">📋 今日技能变更明细</div>
@@ -218,96 +200,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-            <tr>
-                <td><strong>memory</strong></td>
-                <td><span class="version">v1.0.0</span></td>
-                <td><span class="badge badge-new">新增</span></td>
-                <td>新增技能：对话记录自动保存脚本 save-conversation.js</td>
-                <td>2026-02-27</td>
-                <td><span class="badge badge-active">活跃</span></td>
-            </tr>
-        
-            <tr>
-                <td><strong>novel-ai-apocalypse</strong></td>
-                <td><span class="version">v1.0.0</span></td>
-                <td><span class="badge badge-new">新增</span></td>
-                <td>新增创意管理：AI末日小说创意库、碰撞记录、升华文档</td>
-                <td>2026-02-27</td>
-                <td><span class="badge badge-active">活跃</span></td>
-            </tr>
-        
-            <tr>
-                <td><strong>feishu-bot</strong></td>
-                <td><span class="version">v0.1.0</span></td>
-                <td><span class="badge badge-pending">未使用</span></td>
-                <td>飞书机器人连接测试代码，待进一步开发</td>
-                <td>2026-02-27</td>
-                <td><span class="badge badge-pending">待评估</span></td>
-            </tr>
-        
-                </tbody>
-            </table>
-        </div>
-    </section>
-    
-    
-    <!-- Optimization Opportunities -->
-    <section class="table-section" style="padding-top: 0;">
-        <div class="table-card" style="border-left: 4px solid #DC2626;">
-            <div class="table-title" style="color: #DC2626;">🔧 技能潜在优化机会点</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 15%;">技能</th>
-                        <th style="width: 25%;">问题/机会</th>
-                        <th style="width: 10%;">影响</th>
-                        <th style="width: 40%;">解决方案</th>
-                        <th style="width: 10%;">优先级</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr>
-                            <td><strong>skill-dashboard</strong></td>
-                            <td>图表区域为占位符，无真实数据</td>
-                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
-                            <td>接入Chart.js，从git历史提取真实增长数据</td>
-                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
-                        </tr>
-                    
-                        <tr>
-                            <td><strong>data-agent-daily</strong></td>
-                            <td>封面图生成依赖Puppeteer，启动慢</td>
-                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
-                            <td>改用HTML+CSS直接渲染，或预生成模板</td>
-                            <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
-                        </tr>
-                    
-                        <tr>
-                            <td><strong>feishu-bot</strong></td>
-                            <td>飞书对接代码已写但未实际运行</td>
-                            <td><span class="badge" style="background: #E0E7FF; color: #4F46E5;">低</span></td>
-                            <td>完成连接测试，决定是继续开发还是移除</td>
-                            <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
-                        </tr>
-                    
-                        <tr>
-                            <td><strong>全局</strong></td>
-                            <td>缺乏技能使用统计日志</td>
-                            <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
-                            <td>增加技能调用记录，统计每日使用频率</td>
-                            <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
-                        </tr>
-                    
-                        <tr>
-                            <td><strong>全局</strong></td>
-                            <td>VERSION文件规范不统一</td>
-                            <td><span class="badge" style="background: #E0E7FF; color: #4F46E5;">低</span></td>
-                            <td>建立版本号自动递增机制，与git tag同步</td>
-                            <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
-                        </tr>
-                    
+                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
                 </tbody>
             </table>
         </div>
