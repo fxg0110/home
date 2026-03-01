@@ -5,17 +5,63 @@
     <title>Skill 评估报告库</title>
     <style>
         body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
-        .report-item { background: #f5f5f5; padding: 20px; margin-bottom: 15px; border-radius: 8px; border-left: 4px solid #667eea; }
-        .report-item a { color: #667eea; text-decoration: none; font-size: 1.2em; font-weight: bold; }
-        .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; background: #22c55e; color: white; margin-left: 8px; }
+        h1 { color: #333; }
+        .report-list { margin-top: 30px; }
+        .report-item { 
+            background: #f5f5f5; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .report-item a { 
+            color: #667eea; 
+            text-decoration: none; 
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .score { 
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .score-green { background: #dcfce7; color: #166534; }
+        .score-yellow { background: #fef3c7; color: #92400e; }
+        .score-orange { background: #ffedd5; color: #9a3412; }
+        .score-red { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
 <body>
     <h1>🔍 Skill 评估报告库</h1>
-    <div class="report-item">
-        <a href="skill-finder-cn_v2.2-final.html">skill-finder-cn v2.2-final</a>
-        <span class="badge">FIXED</span>
-        <div>基于2.1完整模板，只做3项优化</div>
+    <p>基于MECE原则的60条目深度评估，六维雷达可视化。</p>
+    
+    <div class="report-list">
+        <div class="report-item">
+            <a href="skill-finder-cn_v2.2-COMPLETE.html">skill-finder-cn</a>
+            <span class="score score-orange">5.3/10 谨慎使用</span>
+        </div>
+        
+        <div class="report-item">
+            <a href="multi-search-engine_v2.2-COMPLETE.html">multi-search-engine</a>
+            <span class="score score-orange">评分中...</span>
+        </div>
+        
+        <div class="report-item">
+            <a href="tavily-search_v2.2-COMPLETE.html">tavily-search</a>
+            <span class="score score-orange">评分中...</span>
+        </div>
+        
+        <div class="report-item">
+            <a href="scrape_v2.2-COMPLETE.html">scrape</a>
+            <span class="score score-orange">评分中...</span>
+        </div>
     </div>
+    
+    <hr>
+    <p style="color: #999; font-size: 0.9em;">
+        v2.2 评估标准: 6模块×10条目×11分值=660参考对照 | MECE框架
+    </p>
 </body>
 </html>
