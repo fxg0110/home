@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Agent Express | 2026年3月1日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --mck-blue: #051C2C;
+            --mck-light-blue: #2251FF;
+            --mck-gray: #6B7280;
+            --mck-light-gray: #F3F4F6;
+            --mck-border: #E5E7EB;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #fff;
+            color: var(--mck-blue);
+            line-height: 1.5;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        .header {
+            background: var(--mck-blue);
+            color: white;
+            padding: 16px 20px;
+        }
+        .brand {
+            font-size: 11px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .date-line {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+        .exec-summary {
+            background: var(--mck-light-gray);
+            padding: 16px 20px;
+            border-left: 3px solid var(--mck-light-blue);
+        }
+        .exec-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--mck-gray);
+            margin-bottom: 8px;
+        }
+        .exec-text {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--mck-border);
+            border-top: 1px solid var(--mck-border);
+            border-bottom: 1px solid var(--mck-border);
+        }
+        .metric {
+            background: white;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--mck-light-blue);
+            line-height: 1.2;
+        }
+        .metric-label {
+            font-size: 10px;
+            color: var(--mck-gray);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .section {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--mck-border);
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--mck-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--mck-light-gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--mck-light-gray);
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .news-source {
+            font-size: 10px;
+            color: var(--mck-gray);
+            margin-bottom: 4px;
+        }
+        .tier {
+            display: inline-block;
+            background: var(--mck-blue);
+            color: white;
+            padding: 1px 4px;
+            font-size: 9px;
+            margin-left: 4px;
+        }
+        .news-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--mck-blue);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .news-desc {
+            font-size: 12px;
+            color: var(--mck-gray);
+            line-height: 1.5;
+        }
+        .highlight {
+            background: #FEF3C7;
+            padding: 1px 3px;
+            font-weight: 600;
+        }
+        .insight-box {
+            background: var(--mck-blue);
+            color: white;
+            padding: 16px 20px;
+            margin: 0;
+        }
+        .insight-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #60A5FA;
+            margin-bottom: 8px;
+        }
+        .insight-text {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .footer {
+            padding: 12px 20px;
+            background: var(--mck-light-gray);
+            font-size: 10px;
+            color: var(--mck-gray);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="brand">DATA AGENT INTELLIGENCE</div>
+        <div class="title">行业情报速递</div>
+        <div class="date-line">2026年3月1日 · 星期日</div>
+    </header>
+    
+    <section class="exec-summary">
+        <div class="exec-label">执行摘要</div>
+        <div class="exec-text">中国大模型Token调用量首次全面超越美国，全球Top5模型中国占据四席。MiniMax M2.5、智谱GLM-5、Kimi K2.5等国产模型在Agent编程与数据分析能力上实现突破，标志着Data Agent进入"成本可负担、能力可落地"的新阶段。</div>
+    </section>
+    
+    <section class="metrics">
+        <div class="metric">
+            <div class="metric-value">5.16万亿</div>
+            <div class="metric-label">中国模型周Token调用量</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">80%</div>
+            <div class="metric-label">硅谷AI初创使用中国模型</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">1/10</div>
+            <div class="metric-label">中国模型使用成本</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">100-120亿</div>
+            <div class="metric-label">Kimi最新估值(美元)</div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">◆</div>市场动态</div>
+        
+        <div class="news-item">
+            <div class="news-source">新浪财经 · 2026-02-28 <span class="tier">S级</span></div>
+            <div class="news-title">历史性突破：中国AI模型Token调用量首超美国</div>
+            <div class="news-desc">据OpenRouter数据，2月16-22日当周中国模型调用量达<span class="highlight">5.16万亿Token</span>，美国回落至2.7万亿。全球Top5模型中中国占四席：MiniMax M2.5、Kimi K2.5、智谱GLM-5、DeepSeek V3.2，合计贡献85.7%调用量。OpenRouter用户中美国开发者占47%，中国仅占6%，数据反映全球开发者真实选择。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">东方财富 · 2026-02-25 <span class="tier">S级</span></div>
+            <div class="news-title">月之暗面完成7亿美元融资，估值达100-120亿美元</div>
+            <div class="news-desc">本轮由阿里、腾讯、五源、九安联合领投。Kimi K2.5发布不到20天，累计收入已超2025年全年。创下国内公司从成立到晋级<span class="highlight">"十角兽"</span>最快纪录。CEO杨植麟表示短期不着急上市，计划将上市作为加速AGI的手段。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">科创板日报 · 2026-03-01 <span class="tier">A级</span></div>
+            <div class="news-title">Anthropic被五角大楼列为"供应链风险"</div>
+            <div class="news-desc">美国国防部认定Anthropic为供应链风险，禁止军方承包商与其合作。争议焦点在于AI模型使用条款：政府希望用于"所有合法用途"不受安全限制，而Anthropic坚持对大规模监控和自主武器设限。Anthropic表示将向法院提起挑战。</div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">▲</div>技术突破</div>
+        
+        <div class="news-item">
+            <div class="news-source">MiniMax官方 · 2026-02-12 <span class="tier">S级</span></div>
+            <div class="news-title">MiniMax M2.5发布：全球首个为Agent原生设计的生产级模型</div>
+            <div class="news-desc">SWE-Bench Verified达<span class="highlight">80.2%</span>，Multi-SWE-Bench达51.3%（第一）。100TPS速度下连续工作1小时仅需1美元，成本为Claude Opus的1/10-20。具备"像架构师一样思考"的原生Spec能力，支持10+编程语言全栈开发。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">IT之家 · 2026-02-22 <span class="tier">S级</span></div>
+            <div class="news-title">智谱GLM-5技术细节公开：开源模型新SOTA</div>
+            <div class="news-desc">采用稀疏注意力架构(DSA)，200K上下文计算成本降低1.5-2倍。Artificial Analysis Intelligence Index v4.0评分<span class="highlight">50分</span>刷新开源记录。深度适配华为昇腾等七大国产平台，单节点性能媲美双GPU集群。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">观察者网 · 2026-02-11 <span class="tier">A级</span></div>
+            <div class="news-title">DeepSeek疑似更新：上下文能力暴涨至1M</div>
+            <div class="news-desc">手机端DeepSeek自我介绍显示上下文处理能力从128K提升至<span class="highlight">1M</span>（暴涨8倍），知识库更新至2025年5月（提升约10个月）。API服务仍为V3.2版本，网页/APP正在测试新模型结构。</div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="section-title"><div class="section-icon">●</div>商业落地</div>
+        
+        <div class="news-item">
+            <div class="news-source">阿里云开发者社区 · 2026-02-28 <span class="tier">A级</span></div>
+            <div class="news-title">2026年企业Agent应用场景全景解析</div>
+            <div class="news-desc">瓴羊四大智能产品构建"感知-决策-执行"闭环：Quick Audience（精准营销Agent）、Quick Service（情感化服务Agent）、Quick BI"小Q"（自然语言数据Agent）、Dataphin（自动驾驶数据治理Agent）。AI Agent已褪去概念验证稚气，成为企业数字化转型核心引擎。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">每日经济新闻 · 2026-02-27 <span class="tier">A级</span></div>
+            <div class="news-title">AI应用面临三大瓶颈：同质化、变现难、算力利用率不足</div>
+            <div class="news-desc">行业正从"技术狂热期"转向"价值兑现期"。80%新增AI企业扎堆智能客服、AI画图等红海赛道，产品界面相似度高达<span class="highlight">92%</span>。破局方向：聚焦垂直领域打造"小而美"智能体，深入行业Know-How构建专属知识库。</div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-source">InfoQ · 2026-02-11 <span class="tier">A级</span></div>
+            <div class="news-title">OpenAI Codex 5.3与Claude 4.6双雄对决</div>
+            <div class="news-desc">中关村人工智能研究院副院长郑书新：大模型能力逼近阶段性上限，行业集体寻找新突破。2026年将是Agent在真实场景集中落地之年，Coding Agent正在颠覆传统软件开发范式——个体可快速开发100个产品，成功概率被彻底改变。</div>
+        </div>
+    </section>
+    
+    <div class="insight-box">
+        <div class="insight-label">Strategic Insight</div>
+        <div class="insight-text">
+            <strong>中国AI的"雕花"哲学正在重塑全球竞争格局。</strong>在资源受限条件下，中国工程师将算力潜能压榨到极致：MoE架构降低60%显存占用、吞吐量提升19倍；垂直整合"通义-云-芯"体系实现最高效资源调度。这场超越不是终点，而是起点——当硅谷创业者开始用中国开源模型搭建产品原型，全球AI产业权力结构正在发生静默而深刻的迁移。Data Agent的决胜关键已从"模型参数"转向"场景穿透力"和"成本效率"。
+        </div>
+    </div>
+    
+    <footer class="footer">
+        信息源等级：S级（官方/投研）| A级（权威媒体）| B级（专业社区）<br>
+        Data Agent Daily Express · 每日07:00自动更新
+    </footer>
+</body>
+</html>
