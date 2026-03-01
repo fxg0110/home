@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skill-finder-cn - Skill 深度评测报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* Header - v2.2 标题对调 */
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .header .main-title { 
+            font-size: 2.5em; 
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .header .skill-target { 
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .header .meta { 
+            font-size: 0.95em; 
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+        .header .disclaimer {
+            font-size: 0.8em;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        
+        /* Verdict Card - v2.2 左右布局 */
+        .verdict-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            overflow: hidden;
+        }
+        .verdict-left {
+            flex: 1;
+            padding: 30px;
+            text-align: center;
+            border-right: 1px solid #e2e8f0;
+        }
+        .verdict-right {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .score-main { 
+            font-size: 5em; 
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        /* v2.2 颜色标准 */
+        .score-excellent { color: #16a34a; }
+        .score-good { color: #ca8a04; }
+        .score-pass { color: #ca8a04; }
+        .score-warning { color: #ea580c; }
+        .score-danger { color: #dc2626; }
+        
+        .bg-excellent { background: #dcfce7; color: #166534; }
+        .bg-good { background: #fef3c7; color: #92400e; }
+        .bg-pass { background: #fef3c7; color: #92400e; }
+        .bg-warning { background: #ffedd5; color: #9a3412; }
+        .bg-danger { background: #fee2e2; color: #991b1b; }
+        
+        .verdict-label {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 16px 0 8px;
+        }
+        .verdict-note {
+            color: #64748b;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+        .verdict-interpretation {
+            color: #475569;
+            line-height: 1.8;
+        }
+        .verdict-interpretation h4 {
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        /* 其他样式保持2.1版本 */
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .card h2 {
+            font-size: 1.3em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h2 .icon {
+            font-size: 1.2em;
+        }
+        
+        .overview-section { margin-bottom: 20px; }
+        .overview-section h3 {
+            font-size: 1em;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .overview-section p { 
+            color: #334155; 
+            line-height: 1.8;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 4px 4px 4px 0;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-yellow { background: #fef3c7; color: #92400e; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        
+        .prereq-list {
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        .prereq-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .prereq-item:last-child { border-bottom: none; }
+        .prereq-icon { 
+            width: 32px;
+            height: 32px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1em;
+        }
+        .prereq-text { flex: 1; }
+        .prereq-type {
+            font-size: 0.75em;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        
+        .module-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .module-header:hover { background: #f8fafc; }
+        .module-name { 
+            font-weight: 600; 
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .module-score {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 4px 16px;
+            border-radius: 20px;
+        }
+        .module-desc {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-top: 4px;
+            padding: 0 12px;
+        }
+        
+        .module-details {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .module-details.expanded { display: block; }
+        .detail-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .detail-name { 
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .detail-score {
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+        }
+        .detail-desc {
+            font-size: 0.85em;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .chart-container { max-width: 400px; margin: 20px auto; }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header v2.2 - 标题对调 -->
+        <div class="header">
+            <div class="main-title">🤖 SKILL 深度评测报告</div>
+            <div class="skill-target">评估技能: skill-finder-cn</div>
+            <div class="meta">2026/3/2 02:16:13 | by skill-evaluator v2.2</div>
+            <div class="disclaimer">
+                小桂有数 | 报告由GAI生成，仅供参考，请24小时内删除
+            </div>
+        </div>
+        
+        <!-- Verdict v2.2 - 文案调整 -->
+        <div class="verdict-card">
+            <div class="verdict-left">
+                <div class="score-main score-warning">5.3</div>
+                <div class="verdict-label">谨慎使用</div>
+                <div class="verdict-note">
+                    满分10分，详细评分参考下文<br>
+                    仅供参考，不作为是否采纳技能的最终依据
+                </div>
+            </div>            
+            <div class="verdict-right">
+                <div class="verdict-interpretation">
+                    <h4>评测结论</h4>
+                    <p>该Skill存在一定局限，建议充分了解其适用范围和潜在限制后再做决定，或考虑寻找更为成熟的替代方案。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skill Overview -->
+        <div class="card">
+            <h2>📋 Skill 概述</h2>
+            
+            <div class="overview-section">
+                <h3>功能描述</h3>
+                <p>Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills.</p>
+            </div>
+            
+            <div class="overview-section">
+                <h3>✅ 适用场景</h3>
+                <div><span class="tag tag-green">快速查找Skill</span><span class="tag tag-green">ClawHub搜索</span></div>
+            </div>
+            
+            <div class="overview-section">
+                <h3>❌ 不适用场景</h3>
+                <div><span class="tag tag-red">需要智能推荐</span><span class="tag tag-red">复杂需求分析</span></div>
+            </div>
+        </div>
+        
+        <!-- Prerequisites -->
+        <div class="card">
+            <h2>⚠️ 使用前提</h2>
+            <p style="color: #64748b; margin-bottom: 12px;">为了能真正使用和用好这个 Skill，您需要满足以下条件：</p>
+            
+            <div class="prereq-list">
+                <div class="prereq-item"><div class="prereq-icon">📦</div><div class="prereq-text"><div>已安装 clawhub CLI</div><div class="prereq-type">工具依赖</div></div></div>
+            </div>
+        </div>
+        
+        <!-- Radar Chart -->
+        <div class="card">
+            <h2>🎯 六维能力雷达</h2>
+            <div class="chart-container">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Module Scores -->
+        <div class="card">
+            <h2>📊 详细评分 (点击展开细化条目)</h2>
+            
+            
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('func')">
+                    <div>
+                        <div class="module-name"><span class="icon">⚙️</span> 功能完整性</div>
+                        <div class="module-desc">核心功能实现度、边界清晰度、异常处理覆盖</div>
+                    </div>
+                    <div class="module-score bg-warning">4.9/10</div>
+                </div>                
+                <div id="func-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F1-核心实现</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">Skill描述中核心功能的实现程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F2-边界清晰</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">功能边界定义的明确程度，是否避免过度承诺</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F3-异常处理</span>
+                        <span class="detail-score bg-good">7/10</span>
+                    </div>
+                    <div class="detail-desc">对错误场景、异常情况的处理机制完善程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F4-输入验证</span>
+                        <span class="detail-score bg-good">7/10</span>
+                    </div>
+                    <div class="detail-desc">对输入参数、用户输入的校验机制完善程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F5-输出规范</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">输出格式的一致性、可读性和可预期性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F6-状态管理</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">状态追踪、持久化和恢复机制的完善程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F7-并发安全</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">多实例运行时的线程安全性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F8-资源释放</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">文件句柄、网络连接、内存等资源的释放完善程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F9-可中断性</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">长时间任务的取消、中断机制</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">F10-日志记录</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">关键操作的日志记录完善程度</div>
+                </div>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('usable')">
+                    <div>
+                        <div class="module-name"><span class="icon">🎯</span> 功能易用性</div>
+                        <div class="module-desc">安装便捷性、文档质量、学习曲线</div>
+                    </div>
+                    <div class="module-score bg-good">6.2/10</div>
+                </div>                
+                <div id="usable-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U1-安装便捷</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">安装过程的简单程度，依赖处理的自动化程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U2-文档完整</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">SKILL.md文档的完整性、清晰度和覆盖范围</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U3-示例质量</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">示例代码的可用性、完整性和教育价值</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U4-配置清晰</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">配置项的明确程度，配置说明的清晰度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U5-错误提示</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">错误信息的友好程度、可读性和解决指导</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U6-帮助系统</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">内置帮助、usage信息的完善程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U7-参数设计</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">参数命名直观性、参数设计的合理性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U8-输出可读</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">输出信息的人类可读性、美观程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U9-学习曲线</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">上手难度，学习成本的高低</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">U10-反馈及时</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">操作进度反馈的及时性和完整性</div>
+                </div>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('pop')">
+                    <div>
+                        <div class="module-name"><span class="icon">🔥</span> 人气指数</div>
+                        <div class="module-desc">下载量、社区讨论、近期热度、用户评分</div>
+                    </div>
+                    <div class="module-score bg-warning">4.4/10</div>
+                </div>                
+                <div id="pop-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P1-安装量</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">累计安装/下载次数反映的市场接受度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P2-社区讨论</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">GitHub Issues、Discussions等社区的活跃度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P3-近期热度</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">近30天安装增长、更新频率反映的当前热度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P4-评分数量</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">用户评分、评论的数量反映的参与度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P5-评分均值</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">用户评分平均值反映的满意度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P6-推荐度</span>
+                        <span class="detail-score bg-warning">4/10</span>
+                    </div>
+                    <div class="detail-desc">被其他Skill依赖、官方推荐次数</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P7-作者影响力</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">作者其他作品质量、社区地位</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P8-文档传播</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">外部教程、博客文章、视频等传播度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P9-版本迭代</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">更新频率、版本管理规范性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">P10-生态位</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">在同类Skill中的排名、独特性</div>
+                </div>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('sec')">
+                    <div>
+                        <div class="module-name"><span class="icon">🔒</span> 安全可靠性</div>
+                        <div class="module-desc">数据安全、权限需求、合规风险、供应链安全</div>
+                    </div>
+                    <div class="module-score bg-good">7.2/10</div>
+                </div>                
+                <div id="sec-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S1-数据收集</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">收集用户数据的范围和必要性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S2-数据存储</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">数据存储方式的安全性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S3-网络请求</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">外部网络请求的安全性和必要性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S4-权限需求</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">系统权限需求的合理性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S5-代码注入</span>
+                        <span class="detail-score bg-excellent">8/10</span>
+                    </div>
+                    <div class="detail-desc">eval、exec等危险代码的使用情况</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S6-依赖安全</span>
+                        <span class="detail-score bg-good">7/10</span>
+                    </div>
+                    <div class="detail-desc">依赖包的安全性，是否有已知漏洞</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S7-输入消毒</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">外部输入的验证和消毒处理</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S8-审计日志</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">敏感操作的日志记录</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S9-合规性</span>
+                        <span class="detail-score bg-good">7/10</span>
+                    </div>
+                    <div class="detail-desc">符合GDPR等法规的程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">S10-供应链</span>
+                        <span class="detail-score bg-good">7/10</span>
+                    </div>
+                    <div class="detail-desc">依赖源的可信度</div>
+                </div>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('maint')">
+                    <div>
+                        <div class="module-name"><span class="icon">🔄</span> 运维持续性</div>
+                        <div class="module-desc">作者活跃度、版本管理、向后兼容、社区贡献</div>
+                    </div>
+                    <div class="module-score bg-warning">4.7/10</div>
+                </div>                
+                <div id="maint-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M1-作者活跃度</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">作者近期贡献频率、维护积极性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M2-响应速度</span>
+                        <span class="detail-score bg-warning">4/10</span>
+                    </div>
+                    <div class="detail-desc">Issue、PR的响应时间</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M3-版本管理</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">语义化版本规范、变更记录</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M4-变更记录</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">CHANGELOG的完整性和可读性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M5-依赖稳定</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">依赖包的维护状态、稳定性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M6-向后兼容</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">升级是否破坏兼容性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M7-文档同步</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">文档与代码更新的同步程度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M8-社区贡献</span>
+                        <span class="detail-score bg-warning">4/10</span>
+                    </div>
+                    <div class="detail-desc">是否接受外部贡献、贡献者友好度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M9-替代方案</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">是否有明确替代者、独特性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">M10-商业支持</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">是否有商业公司backing、资金保障</div>
+                </div>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule('code')">
+                    <div>
+                        <div class="module-name"><span class="icon">💻</span> 代码健壮性</div>
+                        <div class="module-desc">错误处理、代码规范、测试覆盖、复杂度控制</div>
+                    </div>
+                    <div class="module-score bg-warning">4.6/10</div>
+                </div>                
+                <div id="code-details" class="module-details">
+                    
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C1-错误处理</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">错误处理机制的完整性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C2-代码规范</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">代码风格一致性、规范遵循度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C3-测试覆盖</span>
+                        <span class="detail-score bg-danger">2/10</span>
+                    </div>
+                    <div class="detail-desc">测试用例的覆盖范围</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C4-类型安全</span>
+                        <span class="detail-score bg-danger">3/10</span>
+                    </div>
+                    <div class="detail-desc">类型检查、类型注解的使用</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C5-复杂度</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">圈复杂度控制、代码简洁度</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C6-注释质量</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">注释的完整性、准确性和有用性</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C7-硬编码</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">硬编码路径、魔法值的使用情况</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C8-魔法数字</span>
+                        <span class="detail-score bg-warning">5/10</span>
+                    </div>
+                    <div class="detail-desc">魔法数字、魔法字符串的使用</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C9-重复代码</span>
+                        <span class="detail-score bg-good">6/10</span>
+                    </div>
+                    <div class="detail-desc">DRY原则遵循度、代码复用情况</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <span class="detail-name">C10-可测试性</span>
+                        <span class="detail-score bg-warning">4/10</span>
+                    </div>
+                    <div class="detail-desc">代码是否易于测试、模块化程度</div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>本报告由 skill-evaluator v2.2 自动生成 | 60条目深度评估 | MECE框架</p>
+            <p>评估标准: 功能完整性 + 功能易用性 + 人气指数 + 安全可靠性 + 运维持续性 + 代码健壮性</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleModule(id) {
+            const details = document.getElementById(id + '-details');
+            details.classList.toggle('expanded');
+        }
+        
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['功能完整性', '功能易用性', '人气指数', '安全可靠性', '运维持续性', '代码健壮性'],
+                datasets: [{
+                    label: 'skill-finder-cn',
+                    data: [4.9, 6.2, 4.4, 7.2, 4.7, 4.6],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: { stepSize: 2 }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>
