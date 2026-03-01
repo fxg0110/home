@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{SKILL_NAME}} - 技能评估报告 | Agent Skill Research</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 封面 */
+        .cover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .cover-date {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        .cover-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .cover-score {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .cover-score-value {
+            font-size: 48px;
+            font-weight: 700;
+        }
+        .cover-score-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* 章节 */
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #667eea;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        h3 {
+            color: #555;
+            font-size: 16px;
+            margin: 20px 0 10px;
+        }
+        
+        /* 雷达图容器 */
+        .radar-container {
+            text-align: center;
+            padding: 20px;
+        }
+        .radar-chart {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* 评分表格 */
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .score-table th,
+        .score-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .score-table th {
+            background: #667eea;
+            color: white;
+        }
+        .score-table tr:hover {
+            background: #f8f9fa;
+        }
+        .score-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .score-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+        
+        /* 替代方案卡片 */
+        .alternative-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .alternative-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .alternative-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .alternative-rating {
+            color: #ffc107;
+        }
+        .alternative-pros,
+        .alternative-cons {
+            margin: 10px 0;
+        }
+        .alternative-pros::before {
+            content: "✅ 优势: ";
+            color: #28a745;
+            font-weight: 500;
+        }
+        .alternative-cons::before {
+            content: "⚠️ 劣势: ";
+            color: #dc3545;
+            font-weight: 500;
+        }
+        
+        /* 投资建议 */
+        .recommendation {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .recommendation.strong-buy {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .recommendation.buy {
+            background: #cce5ff;
+            border-left: 4px solid #007bff;
+        }
+        .recommendation.hold {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+        .recommendation.avoid {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        /* 执行摘要 */
+        .executive-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .cover { padding: 40px 20px; }
+            .cover-title { font-size: 24px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面 -->
+        <div class="cover">
+            <div class="cover-date">{{DATE}} | Agent Skill Research</div>
+            <div class="cover-title">{{SKILL_NAME}}</div>
+            <div class="cover-subtitle">技能深度评估报告</div>
+            <div class="cover-score">
+                <div class="cover-score-value">{{TOTAL_SCORE}}</div>
+                <div class="cover-score-label">总分 / 600</div>
+            </div>
+        </div>
+        <!-- 执行摘要 -->
+        <div class="section">
+            <h2>📋 执行摘要</h2>
+            <div class="executive-summary">
+                {{EXECUTIVE_SUMMARY}}
+            </div>
+        </div>
+        <!-- 六边形雷达图 -->
+        <div class="section">
+            <h2>📊 六维评分雷达图</h2>
+            <div class="radar-container">
+                <div class="radar-chart">
+                    {{RADAR_CHART_SVG}}
+                </div>
+            </div>
+            <table class="score-table">
+                <tr>
+                    <th>维度</th>
+                    <th>得分</th>
+                    <th>权重</th>
+                    <th>可视化</th>
+                </tr>
+                {{DIMENSION_ROWS}}
+            </table>
+        </div>
+        <!-- 详细评估 -->
+        <div class="section">
+            <h2>🔍 六维深度评估</h2>
+            {{DETAILED_EVALUATION}}
+        </div>
+        <!-- 社区与运营 -->
+        <div class="section">
+            <h2>👥 社区与运营分析</h2>
+            {{COMMUNITY_ANALYSIS}}
+        </div>
+        <!-- 替代方案 -->
+        <div class="section">
+            <h2>🔄 替代方案对比</h2>
+            {{ALTERNATIVES}}
+        </div>
+        <!-- 投资建议 -->
+        <div class="section">
+            <h2>💡 投资建议</h2>
+            <div class="recommendation {{RECOMMENDATION_CLASS}}">
+                <strong>{{RECOMMENDATION_TITLE}}</strong>
+                <p>{{RECOMMENDATION_DETAIL}}</p>
+            </div>
+        </div>
+        <!-- 页脚 -->
+        <footer>
+            <p>Generated by Agent Skill Research | {{DATE}}</p>
+            <p>基于六维60项评分体系 | OpenClaw Skill Evaluation Framework</p>
+        </footer>
+    </div>
+</body>
+</html>
