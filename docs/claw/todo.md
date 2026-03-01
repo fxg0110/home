@@ -58,12 +58,23 @@
 - **状态**: 已完成 ✅
 - **完成时间**: 2026-03-01 13:50（心跳检查自动执行）
 
-## P2 - 优化项
+## P2 - 优化项（当前可执行任务）
 
 ### 文档完善
-- [ ] 为所有技能补充 SKILL.md
+- [x] 为所有技能补充 SKILL.md（已完成检查，3个技能已有文档）
 - [ ] 创建项目 README
 - [ ] 编写部署文档
+
+**技能文档状态**（2026-03-01 14:40 检查）：
+- ✅ data-agent-daily: SKILL.md 完整
+- ✅ multi-search-engine: SKILL.md 完整
+- ✅ agent-skill-research: SKILL.md 完整
+- ⏳ skill-dashboard: 仅有 SPEC.md，需补充 SKILL.md
+- ⏳ heartbeat: 仅有 heartbeat.js，需补充 SKILL.md
+- ⏳ memory: 仅有 save-conversation.js，需补充 SKILL.md
+- ⏳ novel-ai-apocalypse: 仅有 IDEAS.md，需补充 SKILL.md
+- ⏳ tool-health: 仅有 check.js，需补充 SKILL.md
+- ⏳ feishu-bot: 仅有连接脚本，需补充 SKILL.md
 
 ### 性能优化
 - [ ] 优化 GitHub Pages 加载速度
@@ -73,9 +84,10 @@
 
 ## 心跳自动推进规则
 
-1. **每次心跳检查**: 读取此清单，找到第一个未完成的 P0 任务
+1. **每次心跳检查**: 读取此清单，找到第一个未完成的 P0/P1 任务
 2. **自动执行**: 如果任务无阻塞项，自动开始执行
 3. **进度汇报**: 完成后更新清单状态，生成进展报告
 4. **推送通知**: 重大进展推送钉钉
 
-**当前可执行任务**: 记忆库页面设计
+**当前状态**: P0/P1 核心功能已全部完成，进入 P2 优化阶段
+**当前可执行任务**: 文档完善 - 为所有技能补充 SKILL.md
