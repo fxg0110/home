@@ -1,0 +1,34 @@
+# GitHub Pages Jekyll Configuration
+# 解决baseurl配置问题
+
+# 站点基础URL
+baseurl: "/home"
+url: "https://fxg0110.github.io"
+
+# 禁用Jekyll处理某些文件
+include:
+  - claw
+  - admin
+  - dashboard
+
+# 排除文件
+exclude:
+  - README.md
+  - .deploy-trigger
+  - .gitignore
+
+# 主题设置（使用默认主题）
+theme: minima
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# 默认布局
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
