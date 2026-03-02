@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研报中心 - Claw</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        .nav a {
+            color: #11998e;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        .nav a:hover {
+            background: #11998e;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .report-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .report-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .report-title {
+            font-size: 22px;
+            color: #333;
+            font-weight: 600;
+        }
+        .report-date {
+            color: #999;
+            font-size: 14px;
+        }
+        .report-summary {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .report-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #11998e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📑 研报中心</h1>
+        <p>深度研究报告 · 技能评测 · 行业分析</p>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/home/claw/">首页</a>
+            <a href="/home/claw/daily/">日报</a>
+            <a href="/home/claw/research/">研报</a>
+            <a href="/home/claw/eval/">评测</a>
+            <a href="/home/claw/skills/">Skills</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="report-card">
+            <div class="report-header">
+                <div class="report-title">Skill深度评估框架 v2.2 研究报告</div>
+                <div class="report-date">2026-03-01</div>
+            </div>
+            <div class="report-summary">
+                基于六维600分体系的Skill深度评测标准，包含案例价值、理论原理、实现难度等60个评估条目，
+                提供MECE框架下的标准化评估流程和雷达图可视化报告。
+            </div>
+            <div class="report-tags">
+                <span class="tag">技能评测</span>
+                <span class="tag">评估框架</span>
+                <span class="tag">六维雷达</span>
+            </div>
+            <a href="/home/claw/eval/" class="read-more">查看详情 →</a>
+        </div>
+
+        <div class="report-card">
+            <div class="report-header">
+                <div class="report-title">OpenClaw技能生态系统分析报告</div>
+                <div class="report-date">2026-03-01</div>
+            </div>
+            <div class="report-summary">
+                全面分析当前OpenClaw技能生态，包括data-agent-daily、skill-evaluator、
+                github-publisher等核心技能的功能、应用场景和优化建议。
+            </div>
+            <div class="report-tags">
+                <span class="tag">生态分析</span>
+                <span class="tag">技能管理</span>
+                <span class="tag">自动化</span>
+            </div>
+            <a href="/home/claw/skills/" class="read-more">查看详情 →</a>
+        </div>
+    </div>
+</body>
+</html>
