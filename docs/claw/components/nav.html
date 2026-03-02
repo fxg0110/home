@@ -1,0 +1,92 @@
+<!-- 全局导航组件 - 嵌入所有页面 -->
+<nav class="global-nav">
+    <div class="nav-brand">
+        <a href="/home/claw/">🐾 Claw</a>
+    </div>
+    <div class="nav-links">
+        <a href="/home/claw/daily/" class="nav-link" data-page="daily">📰 日报</a>
+        <a href="/home/claw/research/" class="nav-link" data-page="research">📑 研报</a>
+        <a href="/home/claw/eval/" class="nav-link" data-page="eval">🎯 评测</a>
+        <a href="/home/claw/skills/" class="nav-link" data-page="skills">🛠️ Skills</a>
+    </div>
+    <div class="nav-search">
+        <input type="text" placeholder="搜索..." id="globalSearch">
+    </div>
+</nav>
+
+<style>
+.global-nav {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+.nav-brand a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+.nav-link {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+.nav-link:hover, .nav-link.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+.nav-search input {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    width: 200px;
+}
+.nav-search input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+@media (max-width: 768px) {
+    .global-nav {
+        flex-wrap: wrap;
+        padding: 10px 15px;
+    }
+    .nav-links {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+        overflow-x: auto;
+    }
+    .nav-search {
+        display: none;
+    }
+}
+</style>
+
+<script>
+// 高亮当前页面导航
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        if (currentPath.includes(link.getAttribute('data-page'))) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
