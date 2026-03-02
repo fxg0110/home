@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skill-finder-cn - Skill 深度评测报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* Header - v2.2 标题对调 */
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .header .main-title { 
+            font-size: 2.5em; 
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .header .skill-target { 
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .header .meta { 
+            font-size: 0.95em; 
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+        .header .disclaimer {
+            font-size: 0.8em;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        
+        /* Verdict Card - v2.2 左右布局 */
+        .verdict-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            overflow: hidden;
+        }
+        .verdict-left {
+            flex: 1;
+            padding: 30px;
+            text-align: center;
+            border-right: 1px solid #e2e8f0;
+        }
+        .verdict-right {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .score-main { 
+            font-size: 5em; 
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        /* v2.2 颜色标准 */
+        .score-excellent { color: #16a34a; }
+        .score-good { color: #ca8a04; }
+        .score-pass { color: #ca8a04; }
+        .score-warning { color: #ea580c; }
+        .score-danger { color: #dc2626; }
+        
+        .bg-excellent { background: #dcfce7; color: #166534; }
+        .bg-good { background: #fef3c7; color: #92400e; }
+        .bg-pass { background: #fef3c7; color: #92400e; }
+        .bg-warning { background: #ffedd5; color: #9a3412; }
+        .bg-danger { background: #fee2e2; color: #991b1b; }
+        
+        .verdict-label {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 16px 0 8px;
+        }
+        .verdict-note {
+            color: #64748b;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+        .verdict-interpretation {
+            color: #475569;
+            line-height: 1.8;
+        }
+        .verdict-interpretation h4 {
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        /* 其他样式保持2.1版本 */
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .card h2 {
+            font-size: 1.3em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h2 .icon {
+            font-size: 1.2em;
+        }
+        
+        .overview-section { margin-bottom: 20px; }
+        .overview-section h3 {
+            font-size: 1em;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .overview-section p { 
+            color: #334155; 
+            line-height: 1.8;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 4px 4px 4px 0;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-yellow { background: #fef3c7; color: #92400e; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        
+        .prereq-list {
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        .prereq-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .prereq-item:last-child { border-bottom: none; }
+        .prereq-icon { 
+            width: 32px;
+            height: 32px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1em;
+        }
+        .prereq-text { flex: 1; }
+        .prereq-type {
+            font-size: 0.75em;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        
+        .module-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .module-header:hover { background: #f8fafc; }
+        .module-name { 
+            font-weight: 600; 
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .module-score {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 4px 16px;
+            border-radius: 20px;
+        }
+        .module-desc {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-top: 4px;
+            padding: 0 12px;
+        }
+        
+        .module-details {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .module-details.expanded { display: block; }
+        .detail-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .detail-name { 
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .detail-score {
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+        }
+        .detail-desc {
+            font-size: 0.85em;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .chart-container { max-width: 400px; margin: 20px auto; }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header v2.2 - 标题对调 -->
+        <div class="header">
+            <div class="main-title">🤖 SKILL 深度评测报告</div>
+            <div class="skill-target">评估技能: skill-finder-cn</div>
+            <div class="meta">2026/3/2 02:05 | by skill-evaluator v2.2</div>
+            <div class="disclaimer">
+                小桂有数 | 报告由GAI生成，仅供参考，请24小时内删除
+            </div>
+        </div>
+        
+        <!-- Verdict v2.2 - 文案调整 -->
+        <div class="verdict-card">
+            <div class="verdict-left">
+                <div class="score-main score-warning">5.3</div>
+                <div class="verdict-label">谨慎使用</div>
+                <div class="verdict-note">
+                    满分10分，详细评分参考下文<br>
+                    仅供参考，不作为是否采纳技能的最终依据
+                </div>
+            </div>            
+            <div class="verdict-right">
+                <div class="verdict-interpretation">
+                    <h4>评测结论</h4>
+                    <p>该Skill存在一定局限，建议充分了解其适用范围和潜在限制后再做决定，或考虑寻找更为成熟的替代方案。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skill Overview -->
+        <div class="card">
+            <h2>📋 Skill 概述</h2>
+            
+            <div class="overview-section">
+                <h3>功能描述</h3>
+                <p>Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills.</p>
+            </div>
+            
+            <div class="overview-section">
+                <h3>✅ 适用场景</h3>
+                <div><span class="tag tag-green">快速查找Skill</span><span class="tag tag-green">ClawHub搜索</span></div>
+            </div>
+            
+            <div class="overview-section">
+                <h3>❌ 不适用场景</h3>
+                <div><span class="tag tag-red">需要智能推荐</span><span class="tag tag-red">复杂需求分析</span></div>
+            </div>
+        </div>
+        
+        <!-- Prerequisites -->
+        <div class="card">
+            <h2>⚠️ 使用前提</h2>
+            <p style="color: #64748b; margin-bottom: 12px;">为了能真正使用和用好这个 Skill，您需要满足以下条件：</p>
+            
+            <div class="prereq-list">
+                <div class="prereq-item"><div class="prereq-icon">📦</div><div class="prereq-text"><div>已安装 clawhub CLI</div><div class="prereq-type">工具依赖</div></div></div>
+            </div>
+        </div>
+        
+        <!-- Radar Chart -->
+        <div class="card">
+            <h2>🎯 六维能力雷达</h2>
+            <div class="chart-container">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Module Scores -->
+        <div class="card">
+            <h2>📊 详细评分 (点击展开细化条目)</h2>
+            
+            
+        </div>
+        
+        <div class="footer">
+            <p>本报告由 skill-evaluator v2.2 自动生成 | 60条目深度评估 | MECE框架</p>
+            <p>评估标准: 功能完整性 + 功能易用性 + 人气指数 + 安全可靠性 + 运维持续性 + 代码健壮性</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleModule(id) {
+            const details = document.getElementById(id + '-details');
+            details.classList.toggle('expanded');
+        }
+        
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['功能完整性', '功能易用性', '人气指数', '安全可靠性', '运维持续性', '代码健壮性'],
+                datasets: [{
+                    label: 'skill-finder-cn',
+                    data: [4.9, 6.2, 4.4, 7.2, 4.7, 4.6],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: { stepSize: 2 }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>
