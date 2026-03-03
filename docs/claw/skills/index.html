@@ -123,67 +123,10 @@
         .badge-new { background: #D1FAE5; color: var(--success); }
         .badge-update { background: #DBEAFE; color: var(--primary); }
         .badge-active { background: #D1FAE5; color: var(--success); }
-        .badge-p0 { background: #FEE2E2; color: var(--danger); }
-        .badge-p1 { background: #FEF3C7; color: var(--warning); }
-        .badge-p2 { background: #E0E7FF; color: #4F46E5; }
         .version {
             font-family: monospace;
             font-size: 12px;
             color: var(--gray);
-        }
-        
-        /* Optimization Section */
-        .opt-section {
-            padding: 0 32px 32px;
-        }
-        .opt-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .opt-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .opt-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #E5E7EB;
-        }
-        .opt-item:last-child { border-bottom: none; }
-        .opt-skill { font-weight: 600; color: #1F2937; }
-        .opt-desc { color: var(--gray); font-size: 13px; margin-top: 4px; }
-        
-        /* Work Summary */
-        .work-section {
-            padding: 0 32px 32px;
-        }
-        .work-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .work-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .work-list {
-            list-style: none;
-        }
-        .work-list li {
-            padding: 8px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        .work-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
         }
         
         /* Footer */
@@ -198,19 +141,19 @@
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">2026年3月4日 | 每日自省自动生成</div>
+        <div class="date">{{DATE}} | 自动生成</div>
     </header>
     
     <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">20</div>
+            <div class="metric-value" style="color: var(--primary)">19</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">新增技能</div>
-            <div class="metric-value" style="color: var(--success)">+2</div>
+            <div class="metric-value" style="color: var(--success)">+0</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
@@ -219,9 +162,25 @@
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">活跃技能</div>
-            <div class="metric-value" style="color: var(--primary)">5</div>
-            <div class="metric-change">今日调用</div>
+            <div class="metric-label">使用技能</div>
+            <div class="metric-value" style="color: var(--primary)">待统计</div>
+            <div class="metric-change">今日</div>
+        </div>
+    </section>
+    
+    <!-- Charts Placeholder -->
+    <section class="charts">
+        <div class="chart-card">
+            <div class="chart-title">技能使用频率</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">技能增长趋势</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">技能健康度</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
         </div>
     </section>
     
@@ -241,75 +200,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>cloud-brain-backup</td>
-                        <td><span class="version">v1.0.0</span></td>
-                        <td><span class="badge badge-new">新增</span></td>
-                        <td>云端虾脑自动备份系统</td>
-                        <td>2026-03-04</td>
-                        <td><span class="badge badge-active">✅ 活跃</span></td>
-                    </tr>
-                    <tr>
-                        <td>novel-ai-apocalypse</td>
-                        <td><span class="version">v1.0.0</span></td>
-                        <td><span class="badge badge-new">新增</span></td>
-                        <td>AI末世小说创意素材库</td>
-                        <td>2026-03-04</td>
-                        <td><span class="badge badge-active">✅ 活跃</span></td>
-                    </tr>
+                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
     
-    <!-- Work Summary -->
-    <section class="work-section">
-        <div class="work-card">
-            <div class="work-title">📊 今日工作成果回顾</div>
-            <ul class="work-list">
-                <li>云端虾脑项目完成：Agent自动备份与恢复系统部署</li>
-                <li>波士顿龙虾版虾籽形象设计：4张故事图提示词优化</li>
-                <li>金融理财视频项目：技术栈验证完成，Edge-TTS + MoviePy + 即梦AI</li>
-                <li>GitHub Pages部署状态检查：发现daily目录404问题，已定位原因</li>
-                <li>心跳检查系统：3个活跃项目监控正常</li>
-            </ul>
-        </div>
-    </section>
-    
-    <!-- Optimization Opportunities -->
-    <section class="opt-section">
-        <div class="opt-card">
-            <div class="opt-title">🔧 技能优化建议</div>
-            <div class="opt-item">
-                <span class="badge badge-p0">P0</span>
-                <span class="opt-skill">github-publisher</span>
-                <div class="opt-desc">GitHub Pages部署状态异常，daily目录404，需要修复构建流程</div>
-            </div>
-            <div class="opt-item">
-                <span class="badge badge-p1">P1</span>
-                <span class="opt-skill">skill-dashboard</span>
-                <div class="opt-desc">模板需要更新：添加使用频率统计、健康度检查自动化</div>
-            </div>
-            <div class="opt-item">
-                <span class="badge badge-p1">P1</span>
-                <span class="opt-skill">data-agent-daily</span>
-                <div class="opt-desc">建议整合到金融理财视频项目，避免技能重复</div>
-            </div>
-            <div class="opt-item">
-                <span class="badge badge-p2">P2</span>
-                <span class="opt-skill">memory</span>
-                <div class="opt-desc">考虑与Mem0集成，提升语义搜索召回率</div>
-            </div>
-            <div class="opt-item">
-                <span class="badge badge-p2">P2</span>
-                <span class="opt-skill">scrape</span>
-                <div class="opt-desc">建议添加更多反爬虫策略，提升稳定性</div>
-            </div>
-        </div>
-    </section>
-    
     <footer class="footer">
-        小桂爷技能管理系统 | 每日凌晨3点自动自省 | 2026-03-04
+        小桂爷技能管理系统 | 24小时自动监控
     </footer>
 </body>
 </html>
