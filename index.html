@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小桂有数 | Data Agent 行业情报</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #1a1a2e;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+        .brand { font-size: 14px; letter-spacing: 4px; color: #e94560; margin-bottom: 16px; font-weight: 700; text-transform: uppercase; }
+        .title { font-size: 48px; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { font-size: 18px; color: #666; margin-bottom: 24px; }
+        .description { font-size: 14px; color: #888; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        .latest-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1);
+        }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .section-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+        .latest-card { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border-radius: 16px; padding: 24px; border: 2px solid #e94560; position: relative; overflow: hidden; }
+        .latest-card::before { content: '最新'; position: absolute; top: 12px; right: -28px; background: #e94560; color: white; padding: 4px 32px; font-size: 12px; font-weight: 600; transform: rotate(45deg); }
+        .latest-date { font-size: 14px; color: #888; margin-bottom: 8px; }
+        .latest-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+        .latest-summary { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+        .btn-primary { display: inline-block; background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .archive-section { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(31, 38, 135, 0.1); }
+        .archive-list { list-style: none; }
+        .archive-item { padding: 16px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .archive-item:last-child { border-bottom: none; }
+        .archive-date { font-size: 14px; color: #888; }
+        .archive-title { font-size: 15px; color: #333; flex: 1; margin-left: 16px; }
+        .archive-link { color: #e94560; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .footer { text-align: center; padding: 40px 20px; color: rgba(255, 255, 255, 0.8); font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="brand">Data Agent Intelligence</div>
+            <h1 class="title">小桂有数</h1>
+            <p class="subtitle">Data Agent 行业情报速递</p>
+            <p class="description">聚焦 Data Agent 与 AI 大模型的商业落地与投资机会。<br>每日精选 S级信源（官方/投研），提供可执行的战略洞察。</p>
+        </header>
+        
+        <section class="latest-section">
+            <h2 class="section-title"><div class="section-icon">📊</div>今日速递</h2>
+            <div class="latest-card">
+                <div class="latest-date">2026年3月4日</div>
+                <div class="latest-title">Snowflake Intelligence正式发布：企业级AI Agent平台竞争白热化</div>
+                <div class="latest-summary">Snowflake向全球12,000+客户开放企业智能平台；Powerdrill Bloom成为Manus有力竞争者；大模型评测从静态Benchmark转向动态对抗评估...</div>
+                <a href="./data_agent_express_20260304070000.html" class="btn-primary">阅读完整报告</a>
+            </div>
+        </section>
+        
+        <section class="archive-section">
+            <h2 class="section-title"><div class="section-icon">📁</div>历史速递</h2>
+            <ul class="archive-list">
+                <li class="archive-item">
+                    <span class="archive-date">2026-03-04</span>
+                    <span class="archive-title">Snowflake Intelligence正式发布：企业级AI Agent平台竞争白热化</span>
+                    <a href="./data_agent_express_20260304070000.html" class="archive-link">查看 →</a>
+                </li>
+                <li class="archive-item">
+                    <span class="archive-date">2026-03-03</span>
+                    <span class="archive-title">Google Colab Data Science Agent全面开放</span>
+                    <a href="./data_agent_express_20260303070000.html" class="archive-link">查看 →</a>
+                </li>
+                <li class="archive-item">
+                    <span class="archive-date">2026-03-02</span>
+                    <span class="archive-title">AI+BI赛道竞争白热化：SmartBI白泽领跑</span>
+                    <a href="./data_agent_express_20260302070000.html" class="archive-link">查看 →</a>
+                </li>
+                <li class="archive-item">
+                    <span class="archive-date">2026-03-01</span>
+                    <span class="archive-title">OpenClaw生态爆发：Skills数量翻倍</span>
+                    <a href="./data_agent_express_20260301070000.html" class="archive-link">查看 →</a>
+                </li>
+                <li class="archive-item">
+                    <span class="archive-date">2026-02-27</span>
+                    <span class="archive-title">中国AI模型调用量首超美国</span>
+                    <a href="./data_agent_express_20260227171000.html" class="archive-link">查看 →</a>
+                </li>
+            </ul>
+        </section>
+        
+        <footer class="footer"><p>小桂有数 · Data Agent 行业情报</p></footer>
+    </div>
+</body>
+</html>
