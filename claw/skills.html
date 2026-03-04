@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能库 - Claw网</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #051C2C;
+            --secondary: #0A2F4C;
+            --accent: #114B7A;
+            --text: #333;
+            --bg: #f5f5f5;
+            --card: #fff;
+            --tag-bg: #e3f2fd;
+            --tag-text: #1976d2;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            background: var(--primary);
+            color: white;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .main {
+            margin-top: 60px;
+            padding: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .page-title { font-size: 24px; font-weight: 600; }
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+        .search-input {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 280px;
+            font-size: 14px;
+        }
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-tag {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            background: #e0e0e0;
+            color: #666;
+            transition: all 0.2s;
+        }
+        .filter-tag:hover, .filter-tag.active {
+            background: var(--accent);
+            color: white;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .skill-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+        }
+        .skill-info { flex: 1; }
+        .skill-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .skill-category {
+            font-size: 12px;
+            color: #888;
+        }
+        .skill-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .skill-stats {
+            display: flex;
+            gap: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #999;
+        }
+        .skill-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .skill-tag {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CLAW</div>
+        <div class="nav-links">
+            <a href="index.html">仪表盘</a>
+            <a href="#">项目</a>
+            <a href="memory.html">记忆</a>
+            <a href="skills.html" class="active">技能</a>
+            <a href="skills/index.html">技能自省</a>
+            <a href="#">任务</a>
+        </div>
+    </nav>
+    <main class="main">
+        <div class="page-header">
+            <h1 class="page-title">🛠️ 技能库</h1>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索技能..." id="searchInput">
+            </div>
+        </div>
+        <div class="filter-tags">
+            <span class="filter-tag active" data-filter="all">全部</span>
+            <span class="filter-tag" data-filter="data">数据处理</span>
+            <span class="filter-tag" data-filter="web">Web开发</span>
+            <span class="filter-tag" data-filter="automation">自动化</span>
+            <span class="filter-tag" data-filter="communication">通讯</span>
+        </div>
+        <div class="skills-grid" id="skillsGrid">
+            <div class="skill-card" data-category="data">
+                <div class="skill-header">
+                    <div class="skill-icon">📊</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Data Agent日报</div>
+                        <div class="skill-category">数据处理 · 自动化</div>
+                    </div>
+                </div>
+                <div class="skill-desc">自动收集、分析和生成每日数据报告，支持多数据源整合与可视化展示。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">47</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">98%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">2.3s</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Puppeteer</span>
+                    <span class="skill-tag">钉钉推送</span>
+                </div>
+            </div>
+            <div class="skill-card" data-category="automation">
+                <div class="skill-header">
+                    <div class="skill-icon">🔍</div>
+                    <div class="skill-info">
+                        <div class="skill-name">技能自省</div>
+                        <div class="skill-category">自动化 · 监控</div>
+                    </div>
+                </div>
+                <div class="skill-desc">定期扫描技能库状态，生成健康报告，检测异常并提供优化建议。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">5.1s</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">GitHub API</span>
+                </div>
+            </div>
+            <div class="skill-card" data-category="web">
+                <div class="skill-header">
+                    <div class="skill-icon">🌐</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Claw网生成器</div>
+                        <div class="skill-category">Web开发 · 静态站点</div>
+                    </div>
+                </div>
+                <div class="skill-desc">自动生成和部署个人AI指挥中心网站，包含仪表盘、技能库、记忆管理等模块。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">12.5s</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">GitHub Pages</span>
+                    <span class="skill-tag">OSS</span>
+                </div>
+            </div>
+            <div class="skill-card" data-category="communication">
+                <div class="skill-header">
+                    <div class="skill-icon">📱</div>
+                    <div class="skill-info">
+                        <div class="skill-name">钉钉推送</div>
+                        <div class="skill-category">通讯 · 通知</div>
+                    </div>
+                </div>
+                <div class="skill-desc">集成钉钉机器人API，支持文本、Markdown、卡片等多种消息格式的推送。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">156</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">99%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">0.8s</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Webhook</span>
+                    <span class="skill-tag">钉钉API</span>
+                </div>
+            </div>
+            <div class="skill-card" data-category="data">
+                <div class="skill-header">
+                    <div class="skill-icon">🔎</div>
+                    <div class="skill-info">
+                        <div class="skill-name">智能搜索</div>
+                        <div class="skill-category">数据处理 · 信息获取</div>
+                    </div>
+                </div>
+                <div class="skill-desc">多引擎搜索聚合，支持网页抓取、内容提取和结构化数据输出。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">89</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">95%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">3.2s</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Brave API</span>
+                    <span class="skill-tag">内容提取</span>
+                </div>
+            </div>
+            <div class="skill-card" data-category="automation">
+                <div class="skill-header">
+                    <div class="skill-icon">⏰</div>
+                    <div class="skill-info">
+                        <div class="skill-name">定时任务</div>
+                        <div class="skill-category">自动化 · 调度</div>
+                    </div>
+                </div>
+                <div class="skill-desc">基于Cron的定时任务调度系统，支持周期性执行、依赖管理和执行日志追踪。</div>
+                <div class="skill-stats">
+                    <div class="stat">
+                        <span class="stat-value">∞</span>
+                        <span class="stat-label">执行次数</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">成功率</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">平均耗时</span>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Cron</span>
+                    <span class="skill-tag">调度器</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // 搜索功能
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.skill-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+        // 分类筛选
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                document.querySelectorAll('.skill-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill 评估报告 - skill-finder-cn</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1em; }
+        .header .meta { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
+        
+        /* Verdict Card */
+        .verdict-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .verdict-card.excellent { border-top: 4px solid #22c55e; }
+        .verdict-card.good { border-top: 4px solid #3b82f6; }
+        .verdict-card.caution { border-top: 4px solid #f59e0b; }
+        .verdict-card.avoid { border-top: 4px solid #ef4444; }
+        .verdict-score { font-size: 4em; font-weight: bold; margin: 20px 0; }
+        .verdict-score.excellent { color: #22c55e; }
+        .verdict-score.good { color: #3b82f6; }
+        .verdict-score.caution { color: #f59e0b; }
+        .verdict-score.avoid { color: #ef4444; }
+        .verdict-label { font-size: 1.5em; font-weight: 600; margin-bottom: 15px; }
+        .verdict-recommendation { color: #666; max-width: 600px; margin: 0 auto; }
+        
+        /* Cards */
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .card h2 {
+            font-size: 1.3em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Two Column */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .stat-item {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        /* Dimension List */
+        .dimension-list { margin-top: 16px; }
+        .dimension-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .dimension-item:last-child { border-bottom: none; }
+        .dimension-name { font-weight: 500; }
+        .dimension-score {
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .score-high { background: #dcfce7; color: #166534; }
+        .score-mid { background: #fef3c7; color: #92400e; }
+        .score-low { background: #fee2e2; color: #991b1b; }
+        
+        /* Chart Container */
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        
+        /* Info List */
+        .info-list { margin-top: 16px; }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-label { color: #666; }
+        .info-value { font-weight: 500; }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 Skill 评估报告</h1>
+            <p class="subtitle">skill-finder-cn</p>
+            <p class="meta">评估时间: 2026/3/1 21:04:27 | 评估工具: skill-evaluator v1.0</p>
+        </div>
+        
+        <!-- Verdict -->
+        <div class="verdict-card caution">
+            <div class="verdict-score caution">53%</div>
+            <div class="verdict-label">谨慎使用</div>
+            <p class="verdict-recommendation">该 Skill 功能较简单或存在一些风险，建议评估后再决定是否安装。</p>
+        </div>
+        
+        <div class="two-col">
+            <!-- Radar Chart -->
+            <div class="card">
+                <h2>六维能力雷达</h2>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Dimension Scores -->
+            <div class="card">
+                <h2>详细评分</h2>
+                <div class="dimension-list">
+                    <div class="dimension-item">
+                        <span class="dimension-name">功能完整性</span>
+                        <span class="dimension-score {{#if (gte SCORE_FUNCTIONALITY 7)}}score-high{{else if (gte SCORE_FUNCTIONALITY 5)}}score-mid{{else}}score-low{{/if}}">6/10</span>
+                    </div>
+                    <div class="dimension-item">
+                        <span class="dimension-name">代码质量</span>
+                        <span class="dimension-score {{#if (gte SCORE_CODE 7)}}score-high{{else if (gte SCORE_CODE 5)}}score-mid{{else}}score-low{{/if}}">4/10</span>
+                    </div>
+                    <div class="dimension-item">
+                        <span class="dimension-name">文档清晰度</span>
+                        <span class="dimension-score {{#if (gte SCORE_DOC 7)}}score-high{{else if (gte SCORE_DOC 5)}}score-mid{{else}}score-low{{/if}}">7/10</span>
+                    </div>
+                    <div class="dimension-item">
+                        <span class="dimension-name">社区活跃度</span>
+                        <span class="dimension-score {{#if (gte SCORE_COMMUNITY 7)}}score-high{{else if (gte SCORE_COMMUNITY 5)}}score-mid{{else}}score-low{{/if}}">3/10</span>
+                    </div>
+                    <div class="dimension-item">
+                        <span class="dimension-name">安全合规性</span>
+                        <span class="dimension-score {{#if (gte SCORE_SECURITY 7)}}score-high{{else if (gte SCORE_SECURITY 5)}}score-mid{{else}}score-low{{/if}}">8/10</span>
+                    </div>
+                    <div class="dimension-item">
+                        <span class="dimension-name">维护可持续性</span>
+                        <span class="dimension-score {{#if (gte SCORE_MAINTENANCE 7)}}score-high{{else if (gte SCORE_MAINTENANCE 5)}}score-mid{{else}}score-low{{/if}}">4/10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Basic Info -->
+        <div class="card">
+            <h2>基本信息</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">文件数量</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">脚本数量</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">代码行数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">40KB</div>
+                    <div class="stat-label">占用空间</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Details -->
+        <div class="two-col">
+            <div class="card">
+                <h2>技术特征</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">GitHub 仓库</span>
+                        <span class="info-value">
+                            {{#if HAS_GITHUB}}
+                            <span class="badge badge-success">有</span>
+                            {{else}}
+                            <span class="badge badge-warning">无</span>
+                            {{/if}}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">错误处理</span>
+                        <span class="info-value">
+                            {{#if HAS_ERROR_HANDLING}}
+                            <span class="badge badge-success">有</span>
+                            {{else}}
+                            <span class="badge badge-warning">无</span>
+                            {{/if}}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">网络请求</span>
+                        <span class="info-value">0 处</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">需要 API Key</span>
+                        <span class="info-value">
+                            {{#if NEEDS_API_KEY}}
+                            <span class="badge badge-warning">是</span>
+                            {{else}}
+                            <span class="badge badge-success">否</span>
+                            {{/if}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>安全评估</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">风险等级</span>
+                        <span class="info-value">
+                            {{#if (eq RISK_LEVEL 'low')}}
+                            <span class="badge badge-success">低</span>
+                            {{else if (eq RISK_LEVEL 'medium')}}
+                            <span class="badge badge-warning">中</span>
+                            {{else}}
+                            <span class="badge badge-danger">高</span>
+                            {{/if}}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">网络调用</span>
+                        <span class="info-value">0 处</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">文件操作</span>
+                        <span class="info-value">{{FS_OPERATIONS}} 处</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>本报告由 skill-evaluator 自动生成，仅供参考</p>
+            <p>评估标准: 六维60分制 | 数据来源: 静态代码分析 + 元数据抓取</p>
+        </div>
+    </div>
+    
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['功能完整性', '代码质量', '文档清晰度', '社区活跃度', '安全合规性', '维护可持续性'],
+                datasets: [{
+                    label: 'skill-finder-cn',
+                    data: [6, 4, 7, 3, 8, 4],
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(102, 126, 234, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研报中心 - Claw</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #333; }
+        .global-nav { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .nav-brand a { color: white; font-size: 24px; font-weight: bold; text-decoration: none; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-link { color: rgba(255,255,255,0.9); text-decoration: none; padding: 8px 16px; border-radius: 20px; transition: all 0.3s; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.2); color: white; }
+        .breadcrumb { background: white; padding: 15px 30px; border-bottom: 1px solid #e0e0e0; font-size: 14px; }
+        .breadcrumb a { color: #667eea; text-decoration: none; }
+        .breadcrumb span { color: #999; margin: 0 8px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 40px 20px; text-align: center; margin: -40px -20px 40px; }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .report-card { background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .report-title { font-size: 22px; color: #333; font-weight: 600; margin-bottom: 10px; }
+        .footer { text-align: center; padding: 40px; color: #999; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <nav class="global-nav">
+        <div class="nav-brand"><a href="/home/claw/">🐾 Claw</a></div>
+        <div class="nav-links">
+            <a href="/home/claw/daily/" class="nav-link">📰 日报</a>
+            <a href="/home/claw/research/" class="nav-link active">📑 研报</a>
+            <a href="/home/claw/eval/" class="nav-link">🎯 评测</a>
+            <a href="/home/claw/skills/" class="nav-link">🛠️ Skills</a>
+        </div>
+    </nav>
+    <div class="breadcrumb"><a href="/home/claw/">首页</a><span>/</span>研报中心</div>
+    <div class="container">
+        <div class="header"><h1>📑 研报中心</h1></div>
+        <div class="report-card">
+            <div class="report-title">Skill深度评估框架 v2.2 研究报告</div>
+            <p>基于六维600分体系的Skill深度评测标准...</p>
+        </div>
+    </div>
+    <div class="footer">© 2026 Claw Knowledge Base</div>
+</body>
+</html>
