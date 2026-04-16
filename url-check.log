@@ -1,34 +1,19 @@
-========================================
-巡检开始: 2026-03-04 01:33:18
-========================================
-✅ https://fxg0110.github.io/home/ (HTTP 200)
-✅ https://fxg0110.github.io/home/claw/ (HTTP 200)
-✅ https://fxg0110.github.io/home/claw/index.html (HTTP 200)
-✅ https://fxg0110.github.io/home/claw/projects.html (HTTP 200)
-✅ https://fxg0110.github.io/home/admin/ (HTTP 200)
-✅ https://fxg0110.github.io/home/admin/index.html (HTTP 200)
-✅ https://fxg0110.github.io/home/select-agent.html (HTTP 200)
-✅ https://fxg0110.github.io/home/dashboard/ (HTTP 200)
-✅ https://fxg0110.github.io/home/latest.html (HTTP 200)
-✅ https://fxg0110.github.io/home/training/skill-development-workflow.html (HTTP 200)
+===== GitHub Pages 可访问性巡检 =====
+巡检时间: 2026-03-07 06:01:01
 
-巡检完成: 2026-03-04 01:34:05
-========================================
+[✓] https://fxg0110.github.io/home/ - HTTP 200
+[✓] https://fxg0110.github.io/home/claw/ - HTTP 200
+[✓] https://fxg0110.github.io/home/claw/index.html - HTTP 200
+[✓] https://fxg0110.github.io/home/claw/projects.html - HTTP 200
+[✓] https://fxg0110.github.io/home/admin/ - HTTP 200
+[✓] https://fxg0110.github.io/home/admin/index.html - HTTP 200
+[✓] https://fxg0110.github.io/home/select-agent.html - HTTP 200
+[✓] https://fxg0110.github.io/home/dashboard/ - HTTP 200
+[✓] https://fxg0110.github.io/home/latest.html - HTTP 200
+[✓] https://fxg0110.github.io/home/training/skill-development-workflow.html - HTTP 200
 
-========================================
-巡检开始: 2026-03-04 06:00:51
-========================================
-✅ https://fxg0110.github.io/home/
-✅ https://fxg0110.github.io/home/claw/
-✅ https://fxg0110.github.io/home/claw/index.html
-✅ https://fxg0110.github.io/home/claw/projects.html
-✅ https://fxg0110.github.io/home/admin/
-✅ https://fxg0110.github.io/home/admin/index.html
-✅ https://fxg0110.github.io/home/select-agent.html
-✅ https://fxg0110.github.io/home/dashboard/
-✅ https://fxg0110.github.io/home/latest.html
-✅ https://fxg0110.github.io/home/training/skill-development-workflow.html
-
-巡检完成: 2026-03-04 06:01:05
-========================================
-
+===== 巡检汇总 =====
+总URL数: 10
+正常: 10
+异常: 0
+成功率: 100%
