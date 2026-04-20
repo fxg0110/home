@@ -1,213 +1,161 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 - 2026-04-17</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #eaeaea;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; background: linear-gradient(90deg, #00d4ff, #7b2cbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header .subtitle { color: #888; font-size: 1.1em; }
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .metric-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s;
-        }
-        .metric-card:hover { transform: translateY(-5px); }
-        .metric-value { font-size: 2.5em; font-weight: bold; color: #00d4ff; }
-        .metric-label { color: #888; margin-top: 8px; }
-        .section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .section h2 {
-            color: #00d4ff;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .skill-table { width: 100%; border-collapse: collapse; }
-        .skill-table th, .skill-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .skill-table th { color: #888; font-weight: 500; }
-        .skill-table tr:hover { background: rgba(255,255,255,0.03); }
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-        }
-        .badge-green { background: rgba(0,255,150,0.2); color: #00ff96; }
-        .badge-yellow { background: rgba(255,200,0,0.2); color: #ffc800; }
-        .badge-red { background: rgba(255,100,100,0.2); color: #ff6464; }
-        .badge-blue { background: rgba(0,212,255,0.2); color: #00d4ff; }
-        .changes-list { list-style: none; }
-        .changes-list li {
-            padding: 12px;
-            margin-bottom: 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            border-left: 3px solid #00d4ff;
-        }
-        .opportunity {
-            padding: 15px;
-            margin-bottom: 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            border-left: 3px solid #ffc800;
-        }
-        .opportunity h4 { color: #ffc800; margin-bottom: 8px; }
-        .opportunity p { color: #aaa; font-size: 0.95em; }
-        .status-ok { color: #00ff96; }
-        .status-warn { color: #ffc800; }
-        .status-error { color: #ff6464; }
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-            font-size: 0.9em;
-        }
-        .timestamp { color: #00d4ff; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技能管理仪表板 - 2026-04-21</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6;padding:20px}
+  .container{max-width:1200px;margin:0 auto}
+  h1{font-size:1.8rem;margin-bottom:8px;color:#f8fafc}
+  .subtitle{color:#94a3b8;font-size:0.9rem;margin-bottom:24px}
+  .metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
+  .metric-card{background:#1e293b;border-radius:12px;padding:20px;border:1px solid #334155}
+  .metric-label{font-size:0.8rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em}
+  .metric-value{font-size:2rem;font-weight:700;color:#f8fafc;margin:8px 0}
+  .metric-change{font-size:0.85rem}
+  .up{color:#4ade80}
+  .down{color:#f87171}
+  .neutral{color:#94a3b8}
+  .section{background:#1e293b;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #334155}
+  .section h2{font-size:1.1rem;color:#f8fafc;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  table{width:100%;border-collapse:collapse;font-size:0.85rem}
+  th{text-align:left;padding:10px 8px;color:#94a3b8;font-weight:500;border-bottom:1px solid #334155}
+  td{padding:10px 8px;border-bottom:1px solid #334155}
+  tr:hover td{background:#252f47}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:500}
+  .badge-green{background:#064e3b;color:#4ade80}
+  .badge-yellow{background:#422006;color:#facc15}
+  .badge-red{background:#450a0a;color:#f87171}
+  .badge-blue{background:#0c2d5b;color:#60a5fa}
+  .highlight-box{background:#172554;border:1px solid #1e40af;border-radius:8px;padding:16px;margin-top:16px}
+  .highlight-box h3{color:#93c5fd;font-size:0.95rem;margin-bottom:8px}
+  .highlight-box ul{margin-left:16px;color:#cbd5e1}
+  .highlight-box li{margin:6px 0}
+  .footer{text-align:center;color:#64748b;font-size:0.8rem;margin-top:24px;padding-top:16px;border-top:1px solid #334155}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🦐 技能管理仪表板</h1>
-            <p class="subtitle">每日自省报告 · <span class="timestamp">2026年4月17日 凌晨3:00</span></p>
-        </div>
+<div class="container">
+  <h1>🧠 技能管理仪表板</h1>
+  <div class="subtitle">生成时间: 2026-04-21 02:50 CST | 虾籽每日自省报告</div>
 
-        <div class="metrics">
-            <div class="metric-card">
-                <div class="metric-value">20</div>
-                <div class="metric-label">技能总数</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">4</div>
-                <div class="metric-label">今日变更</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">95%</div>
-                <div class="metric-label">健康度</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">3</div>
-                <div class="metric-label">优化机会</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>📊 技能完整清单</h2>
-            <table class="skill-table">
-                <thead>
-                    <tr>
-                        <th>技能名称</th>
-                        <th>版本</th>
-                        <th>描述</th>
-                        <th>状态</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>agent-skill-research</td><td><span class="badge badge-yellow">未指定</span></td><td>深度评估OpenClaw/ClawHub技能，六维60项评分</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>ai-industry-express</td><td><span class="badge badge-yellow">未指定</span></td><td>AI行业日报生成，KimiSearch+多轮筛选</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>cloud-brain-backup</td><td><span class="badge badge-yellow">未指定</span></td><td>云端虾脑备份系统</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>evaluation-framework</td><td><span class="badge badge-green">1.0.0</span></td><td>技能评估框架v1.0，六维600分体系</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>feishu-bot</td><td><span class="badge badge-green">0.1.0</span></td><td>飞书长连接客户端，WebSocket实时接收消息</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>find-skills</td><td><span class="badge badge-yellow">未指定</span></td><td>最高优先级技能发现流程</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>github-publisher</td><td><span class="badge badge-yellow">未指定</span></td><td>GitHub自动化推送与验证系统v2.0</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>heartbeat</td><td><span class="badge badge-green">2.0.0</span></td><td>心跳机制v2.0，自驱执行引擎</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>memory</td><td><span class="badge badge-green">1.0.0</span></td><td>实时记忆存储系统，自动保存时间戳</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>multi-search-engine</td><td><span class="badge badge-red">格式错误</span></td><td>17引擎集成(8中文+9全球)，高级搜索</td><td class="status-error">✗ 版本字段异常</td></tr>
-                    <tr><td>novel-ai-apocalypse</td><td><span class="badge badge-green">0.1.0</span></td><td>AI末世小说创意素材库</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>scrape</td><td><span class="badge badge-yellow">未指定</span></td><td>合法网页抓取，遵守robots.txt</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>skill-dashboard</td><td><span class="badge badge-green">1.0.0</span></td><td>技能管理仪表板生成器，每日自动报告</td><td class="status-ok">✓ 正常</td></tr>
-                    <tr><td>skill-evaluator</td><td><span class="badge badge-yellow">未指定</span></td><td>Skill深度评估系统v2.0，60条目MECE框架</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>skill-finder-cn</td><td><span class="badge badge-yellow">未指定</span></td><td>Skill查找器，帮助发现安装ClawHub技能</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>skillhub-preference</td><td><span class="badge badge-yellow">未指定</span></td><td>优先使用skillhub进行技能发现/安装</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>stock-watcher</td><td><span class="badge badge-yellow">未指定</span></td><td>个人股票观察清单管理，同花顺数据源</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>tavily-search</td><td><span class="badge badge-yellow">未指定</span></td><td>Tavily API优化搜索，AI代理专用</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>token-tracker</td><td><span class="badge badge-yellow">未指定</span></td><td>Token消耗追踪技能</td><td class="status-warn">⚠ 需补充版本</td></tr>
-                    <tr><td>tool-health</td><td><span class="badge badge-green">1.0.0</span></td><td>工具健康检查系统，每日08:00自动检查</td><td class="status-ok">✓ 正常</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>📝 今日变更记录</h2>
-            <ul class="changes-list">
-                <li><strong>[无变更]</strong> 过去24小时内技能文件无新增或修改</li>
-                <li><strong>[上次更新]</strong> 2026-03-26 find-skills & skillhub-preference 优化</li>
-                <li><strong>[系统状态]</strong> 仪表板自动生成任务正常运行</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>🔧 优化机会点</h2>
-            <div class="opportunity">
-                <h4>P1 - 补充缺失版本号</h4>
-                <p>14个技能未指定版本号（find-skills、github-publisher、scrape等）。建议统一添加version字段，采用语义化版本规范。</p>
-            </div>
-            <div class="opportunity">
-                <h4>P2 - 修复multi-search-engine元数据</h4>
-                <p>该SKILL.md中version字段格式异常（显示为"- Conversion: `100 USD to CNY`"），需要修正YAML格式。</p>
-            </div>
-            <div class="opportunity">
-                <h4>P2 - 清理备份目录</h4>
-                <p>xiazi-diary-backup-20260307-233618为历史备份，可考虑归档到独立仓库减少主技能目录噪音。</p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>📈 健康度详情</h2>
-            <p><span class="status-ok">● 正常: 6个</span> | <span class="status-warn">● 需优化: 13个</span> | <span class="status-error">● 异常: 1个</span></p>
-            <br>
-            <p><strong>核心指标:</strong></p>
-            <ul style="margin-left: 20px; color: #aaa;">
-                <li>SKILL.md 完整率: 100% (20/20)</li>
-                <li>版本号规范率: 30% (6/20)</li>
-                <li>description完整率: 95% (19/20)</li>
-                <li>author标注率: 40% (8/20)</li>
-            </ul>
-        </div>
-
-        <div class="footer">
-            <p>🦐 虾籽的技能自省系统 · 自动生成于 2026-04-17 03:00 CST</p>
-            <p style="margin-top: 10px; font-size: 0.8em;">下次检查: 2026-04-18 03:00 | 执行耗时: 0.8s</p>
-        </div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">技能总数</div>
+      <div class="metric-value">27</div>
+      <div class="metric-change up">↑ 3 今日新增</div>
     </div>
+    <div class="metric-card">
+      <div class="metric-label">健康技能</div>
+      <div class="metric-value">24</div>
+      <div class="metric-change up">88.9% 完整度</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">待优化</div>
+      <div class="metric-value">21</div>
+      <div class="metric-change down">缺 README / VERSION</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">今日活动</div>
+      <div class="metric-value">3</div>
+      <div class="metric-change neutral">新技能安装</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 技能清单</h2>
+    <table>
+      <thead>
+        <tr><th>技能名称</th><th>文件数</th><th>SKILL.md</th><th>README</th><th>VERSION</th><th>状态</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>agent-skill-research</td><td>40</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>ai-industry-express</td><td>4624</td><td>✅</td><td>✅</td><td>✅ v1.2.0</td><td><span class="badge badge-green">健康</span></td></tr>
+        <tr><td>capability-evolver</td><td>185</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-yellow">P1-缺VERSION</span></td></tr>
+        <tr><td><strong>capability-evolver-pro ⭐</strong></td><td>4</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-新技能</span></td></tr>
+        <tr><td>cloud-brain-backup</td><td>12</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>evaluation-framework</td><td>2</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>feishu-bot</td><td>829</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>find-skills</td><td>1</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-red">P0-极简</span></td></tr>
+        <tr><td>github-publisher</td><td>44</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>heartbeat</td><td>5</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td><strong>kimiim ⭐</strong></td><td>1</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-blue">今日新增</span></td></tr>
+        <tr><td>memory</td><td>2</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>multi-search-engine</td><td>8</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>novel-ai-apocalypse</td><td>7</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-yellow">P1-缺VERSION</span></td></tr>
+        <tr><td>scrape</td><td>4</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>skill-dashboard</td><td>7</td><td>✅</td><td>❌</td><td>✅ v1.0.0</td><td><span class="badge badge-green">健康</span></td></tr>
+        <tr><td>skill-evaluator</td><td>156</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>skill-finder-cn</td><td>6</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>skillhub-preference</td><td>1</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-red">P0-极简</span></td></tr>
+        <tr><td>stock-watcher</td><td>12</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-yellow">P1-缺VERSION</span></td></tr>
+        <tr><td>tavily-search</td><td>5</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td><strong>time-awareness ⭐</strong></td><td>1</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-blue">今日新增</span></td></tr>
+        <tr><td>token-tracker</td><td>4</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-yellow">P1-缺VERSION</span></td></tr>
+        <tr><td>tool-health</td><td>2</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-yellow">P1-缺文件</span></td></tr>
+        <tr><td>wechat-article-extractor</td><td>8</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-yellow">P1-缺VERSION</span></td></tr>
+        <tr><td><strong>worker-safety ⭐</strong></td><td>1</td><td>✅</td><td>❌</td><td>❌</td><td><span class="badge badge-blue">今日新增</span></td></tr>
+        <tr><td>xiazi-diary</td><td>967</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-green">活跃</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🔄 今日变更明细</h2>
+    <table>
+      <thead><tr><th>技能</th><th>变更类型</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>kimiim</td><td><span class="badge badge-green">新增</span></td><td>用于 Kimi 群聊交互的技能</td></tr>
+        <tr><td>time-awareness</td><td><span class="badge badge-green">新增</span></td><td>时间感知相关技能</td></tr>
+        <tr><td>worker-safety</td><td><span class="badge badge-green">新增</span></td><td>工作安全相关技能</td></tr>
+        <tr><td>xiazi-diary</td><td><span class="badge badge-yellow">活跃</span></td><td>昨日持续更新 (967 files)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>💡 优化建议 (P0/P1/P2)</h2>
+    <div class="highlight-box">
+      <h3>🔴 P0 - 立即处理</h3>
+      <ul>
+        <li>find-skills / skillhub-preference / kimiim / time-awareness / worker-safety: 仅单文件，建议补充 README 和示例</li>
+        <li>建议统一所有技能目录结构: SKILL.md + README.md + VERSION 三件套</li>
+      </ul>
+    </div>
+    <div class="highlight-box">
+      <h3>🟡 P1 - 本周完成</h3>
+      <ul>
+        <li>21个技能缺少 README.md，影响新用户理解和使用</li>
+        <li>仅 2/27 技能有 VERSION 文件，建议全部补齐版本管理</li>
+        <li>capability-evolver-pro 文件数仅4个，需确认功能完整性</li>
+      </ul>
+    </div>
+    <div class="highlight-box">
+      <h3>🟢 P2 - 持续改进</h3>
+      <ul>
+        <li>ai-industry-express 文件数 4624，确认是否有冗余或应拆分</li>
+        <li>xiazi-diary 967 files，考虑归档旧备份减少体积</li>
+        <li>建立技能评分机制，定期淘汰低使用率技能</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📊 昨日工作回顾 (2026-04-20)</h2>
+    <ul style="margin-left:16px;color:#cbd5e1">
+      <li>09:00 Cron 执行：技能安装状态确认、量化交易准备</li>
+      <li>技能安装：wechat-article-extractor v1.0.0、capability-evolver-pro v1.0.2 就绪</li>
+      <li>创建交易日志和检查清单，启动 A股监控准备</li>
+      <li>技能自省仪表板已更新至 GitHub Pages</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    虾籽 (小桂爷) · 每日自省 · 2026-04-21 02:50 CST<br>
+    上次更新: 2026-04-20 仪表板更新 (git: b3db11f)
+  </div>
+</div>
 </body>
 </html>
