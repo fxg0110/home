@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年3月4日</title>
+    <title>技能管理仪表板 | 2026年4月21日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -123,11 +123,44 @@
         .badge-new { background: #D1FAE5; color: var(--success); }
         .badge-update { background: #DBEAFE; color: var(--primary); }
         .badge-active { background: #D1FAE5; color: var(--success); }
+        .badge-stale { background: #FEE2E2; color: var(--danger); }
         .version {
             font-family: monospace;
             font-size: 12px;
             color: var(--gray);
         }
+        
+        /* Insights */
+        .insights {
+            padding: 0 32px 24px;
+        }
+        .insights-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .insights-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .insight-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .insight-item:last-child { border-bottom: none; }
+        .insight-label {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .insight-p0 { background: #FEE2E2; color: var(--danger); }
+        .insight-p1 { background: #FEF3C7; color: var(--warning); }
+        .insight-p2 { background: #DBEAFE; color: var(--primary); }
         
         /* Footer */
         .footer {
@@ -141,14 +174,14 @@
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">{{DATE}} | 自动生成</div>
+        <div class="date">2026年4月21日 | 自动生成 | 第113次自省</div>
     </header>
     
     <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">19</div>
+            <div class="metric-value" style="color: var(--primary)">27</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
@@ -163,24 +196,8 @@
         </div>
         <div class="metric-card">
             <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">待统计</div>
+            <div class="metric-value" style="color: var(--primary)">3</div>
             <div class="metric-change">今日</div>
-        </div>
-    </section>
-    
-    <!-- Charts Placeholder -->
-    <section class="charts">
-        <div class="chart-card">
-            <div class="chart-title">技能使用频率</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-title">技能增长趋势</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-title">技能健康度</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
         </div>
     </section>
     
@@ -206,8 +223,79 @@
         </div>
     </section>
     
+    <!-- All Skills Status -->
+    <section class="table-section">
+        <div class="table-card">
+            <div class="table-title">📊 全部技能状态一览</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>技能名称</th>
+                        <th>版本</th>
+                        <th>SKILL.md</th>
+                        <th>健康度</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>agent-skill-research</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>ai-industry-express</td><td class="version">v1.2.0</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>capability-evolver</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>capability-evolver-pro</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>cloud-brain-backup</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>evaluation-framework</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>feishu-bot</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>find-skills</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>github-publisher</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>heartbeat</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>kimiim</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
+                    <tr><td>memory</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>multi-search-engine</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>novel-ai-apocalypse</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>scrape</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>skill-dashboard</td><td class="version">v1.0.0</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>skill-evaluator</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>skill-finder-cn</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>skillhub-preference</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>skills</td><td class="version">未标记</td><td><span class="badge badge-stale">❌</span></td><td>缺失</td><td>需创建SKILL.md</td></tr>
+                    <tr><td>stock-watcher</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>tavily-search</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>time-awareness</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
+                    <tr><td>token-tracker</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>tool-health</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>wechat-article-extractor</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                    <tr><td>worker-safety</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
+                    <tr><td>xiazi-diary</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <!-- Insights -->
+    <section class="insights">
+        <div class="insights-card">
+            <div class="insights-title">💡 优化建议</div>
+            <div class="insight-item">
+                <span class="insight-label insight-p0">P0</span>
+                skills目录缺少SKILL.md文件，需要补全
+            </div>
+            <div class="insight-item">
+                <span class="insight-label insight-p1">P1</span>
+                25个技能未标记VERSION（仅2个有版本号），建议统一版本管理
+            </div>
+            <div class="insight-item">
+                <span class="insight-label insight-p1">P1</span>
+                MEMORY.md技能清单与实际目录不同步：缺失kimiim、time-awareness、worker-safety
+            </div>
+            <div class="insight-item">
+                <span class="insight-label insight-p2">P2</span>
+                xiazi-diary-backup-20260307-233618 为旧备份，建议清理归档
+            </div>
+        </div>
+    </section>
+    
     <footer class="footer">
-        小桂爷技能管理系统 | 24小时自动监控
+        小桂爷技能管理系统 | 24小时自动监控 | 仪表板生成时间: 2026-04-21 02:50
     </footer>
 </body>
 </html>
