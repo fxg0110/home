@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年4月21日</title>
+    <title>技能管理仪表板 | 2026年4月29日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -11,6 +11,7 @@
             --success: #059669;
             --warning: #D97706;
             --danger: #DC2626;
+            --info: #0891B2;
             --gray: #6B7280;
             --bg: #F3F4F6;
         }
@@ -28,7 +29,6 @@
         .header h1 { font-size: 24px; font-weight: 700; }
         .header .date { font-size: 14px; opacity: 0.7; margin-top: 4px; }
         
-        /* Metrics */
         .metrics {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -41,261 +41,409 @@
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .metric-label {
-            font-size: 12px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .metric-value {
-            font-size: 36px;
-            font-weight: 700;
-            margin-top: 8px;
-        }
-        .metric-change {
-            font-size: 12px;
-            margin-top: 4px;
-        }
+        .metric-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-value { font-size: 36px; font-weight: 700; margin-top: 8px; }
+        .metric-change { font-size: 12px; margin-top: 4px; }
         .metric-change.up { color: var(--success); }
         .metric-change.down { color: var(--danger); }
         
-        /* Charts */
-        .charts {
+        .sections {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             padding: 0 32px 24px;
         }
-        .chart-card {
+        .section-card {
             background: white;
             border-radius: 12px;
-            padding: 20px;
+            padding: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .chart-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
         
-        /* Table */
-        .table-section {
-            padding: 0 32px 32px;
-        }
+        .table-section { padding: 0 32px 32px; }
         .table-card {
             background: white;
             border-radius: 12px;
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .table-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        th {
-            text-align: left;
-            padding: 12px;
-            background: var(--bg);
-            font-weight: 600;
-            color: var(--gray);
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-        }
-        td {
-            padding: 16px 12px;
-            border-bottom: 1px solid #E5E7EB;
-        }
+        .table-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 12px; background: var(--bg); font-weight: 600; color: var(--gray); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        td { padding: 16px 12px; border-bottom: 1px solid #E5E7EB; }
         tr:last-child td { border-bottom: none; }
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
+        
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
         .badge-new { background: #D1FAE5; color: var(--success); }
         .badge-update { background: #DBEAFE; color: var(--primary); }
         .badge-active { background: #D1FAE5; color: var(--success); }
-        .badge-stale { background: #FEE2E2; color: var(--danger); }
-        .version {
-            font-family: monospace;
-            font-size: 12px;
-            color: var(--gray);
-        }
+        .badge-danger { background: #FEE2E2; color: var(--danger); }
+        .badge-warning { background: #FEF3C7; color: var(--warning); }
+        .badge-info { background: #CFFAFE; color: var(--info); }
+        .badge-success { background: #D1FAE5; color: var(--success); }
+        .version { font-family: monospace; font-size: 12px; color: var(--gray); }
         
-        /* Insights */
-        .insights {
-            padding: 0 32px 24px;
-        }
-        .insights-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .insights-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .insight-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #E5E7EB;
-        }
-        .insight-item:last-child { border-bottom: none; }
-        .insight-label {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-        .insight-p0 { background: #FEE2E2; color: var(--danger); }
-        .insight-p1 { background: #FEF3C7; color: var(--warning); }
-        .insight-p2 { background: #DBEAFE; color: var(--primary); }
+        .optimization-list { list-style: none; }
+        .optimization-list li { padding: 10px 0; border-bottom: 1px solid #F3F4F6; }
+        .optimization-list li:last-child { border-bottom: none; }
         
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 24px;
-            font-size: 12px;
-            color: var(--gray);
+        .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--gray); }
+        
+        @media (max-width: 768px) {
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .sections { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">2026年4月21日 | 自动生成 | 第113次自省</div>
+        <div class="date">2026年4月29日 | 自动生成 | 小桂爷技能管理系统 v2.0</div>
     </header>
     
-    <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">27</div>
+            <div class="metric-value" style="color: var(--primary)">28</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">新增技能</div>
-            <div class="metric-value" style="color: var(--success)">+0</div>
-            <div class="metric-change up">今日</div>
+            <div class="metric-label">今日新增</div>
+            <div class="metric-value" style="color: var(--success)">0</div>
+            <div class="metric-change ">无变更</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">更新技能</div>
-            <div class="metric-value" style="color: var(--warning)">+0</div>
-            <div class="metric-change up">今日</div>
+            <div class="metric-label">今日更新</div>
+            <div class="metric-value" style="color: var(--warning)">0</div>
+            <div class="metric-change ">无变更</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">3</div>
-            <div class="metric-change">今日</div>
+            <div class="metric-label">平均健康度</div>
+            <div class="metric-value" style="color: var(--danger)">44%</div>
+            <div class="metric-change down">需优化</div>
         </div>
     </section>
     
-    <!-- Skills Table -->
-    <section class="table-section">
-        <div class="table-card">
-            <div class="table-title">📋 今日技能变更明细</div>
+    <div class="sections">
+        <div class="section-card">
+            <div class="section-title">📋 今日变更明细</div>
             <table>
-                <thead>
-                    <tr>
-                        <th>技能名称</th>
-                        <th>版本</th>
-                        <th>类型</th>
-                        <th>变更内容</th>
-                        <th>更新时间</th>
-                        <th>状态</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
-                </tbody>
+                <thead><tr><th>技能</th><th>类型</th><th>日期</th><th>状态</th></tr></thead>
+                <tbody><tr><td colspan="4" style="text-align: center; color: #999; padding: 24px;">今日暂无技能变更</td></tr></tbody>
             </table>
         </div>
-    </section>
+        <div class="section-card">
+            <div class="section-title">💡 优化机会点</div>
+            <ul class="optimization-list">
+                <li><span class="badge badge-danger">P0</span> <strong>1个技能</strong> 缺失 SKILL.md，需立即补全</li><li><span class="badge badge-warning">P1</span> <strong>25个技能</strong> 缺失 VERSION 文件，建议补全</li><li><span class="badge badge-info">P2</span> <strong>1个技能</strong> 缺失 README.md，建议补全</li><li><span class="badge badge-warning">P1</span> 整体健康度 <strong>44%</strong>，目标提升至90%</li>
+                <li><span class="badge badge-update">更新</span> <strong>novel-ai-apocalypse</strong> 素材库持续更新中（COLLISIONS.md、SUBLIMATION.md 4/28更新）</li>
+            </ul>
+        </div>
+    </div>
     
-    <!-- All Skills Status -->
     <section class="table-section">
         <div class="table-card">
-            <div class="table-title">📊 全部技能状态一览</div>
+            <div class="table-title">📊 技能健康度全景</div>
             <table>
                 <thead>
                     <tr>
                         <th>技能名称</th>
                         <th>版本</th>
-                        <th>SKILL.md</th>
+                        <th>优先级</th>
                         <th>健康度</th>
-                        <th>备注</th>
+                        <th>SKILL.md</th>
+                        <th>VERSION</th>
+                        <th>README</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>agent-skill-research</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>ai-industry-express</td><td class="version">v1.2.0</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>capability-evolver</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>capability-evolver-pro</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>cloud-brain-backup</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>evaluation-framework</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>feishu-bot</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>find-skills</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>github-publisher</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>heartbeat</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>kimiim</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
-                    <tr><td>memory</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>multi-search-engine</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>novel-ai-apocalypse</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>scrape</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>skill-dashboard</td><td class="version">v1.0.0</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>skill-evaluator</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>skill-finder-cn</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>skillhub-preference</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>skills</td><td class="version">未标记</td><td><span class="badge badge-stale">❌</span></td><td>缺失</td><td>需创建SKILL.md</td></tr>
-                    <tr><td>stock-watcher</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>tavily-search</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>time-awareness</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
-                    <tr><td>token-tracker</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>tool-health</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>wechat-article-extractor</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                    <tr><td>worker-safety</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td>未录入MEMORY.md</td></tr>
-                    <tr><td>xiazi-diary</td><td class="version">未标记</td><td><span class="badge badge-active">✅</span></td><td>正常</td><td></td></tr>
-                </tbody>
+            <tr>
+                <td><strong>.git</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-danger">P0</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 0%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>0%</td>
+                <td>❌ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>agent-skill-research</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>capability-evolver</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>capability-evolver-pro</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>evaluation-framework</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>feishu-bot</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>find-skills</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>github-publisher</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>heartbeat</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>kimiim</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>memory</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>multi-search-engine</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>novel-ai-apocalypse</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>scrape</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>skill-evaluator</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>skill-finder-cn</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>skillhub-preference</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>stock-watcher</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>tavily-search</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>time-awareness</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>token-tracker</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>tool-health</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>wechat-article-extractor</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>worker-safety</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 33%; height: 100%; background: var(--danger); border-radius: 3px;"></div></div>33%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>xiazi-diary</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>xiazi-diary-backup-20260307-233618</strong></td>
+                <td><span class="version">none</span></td>
+                <td><span class="badge badge-warning">P1</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>❌ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>skill-dashboard</strong></td>
+                <td><span class="version">v1.0.0</span></td>
+                <td><span class="badge badge-info">P2</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div></div>67%</td>
+                <td>✅ SKILL.md</td>
+                <td>✅ VERSION</td>
+                <td>❌ README</td>
+            </tr>
+        
+            <tr>
+                <td><strong>ai-industry-express</strong></td>
+                <td><span class="version">v1.2.0</span></td>
+                <td><span class="badge badge-success">P3</span></td>
+                <td><div style="width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; display: inline-block; margin-right: 8px;"><div style="width: 100%; height: 100%; background: var(--success); border-radius: 3px;"></div></div>100%</td>
+                <td>✅ SKILL.md</td>
+                <td>✅ VERSION</td>
+                <td>✅ README</td>
+            </tr>
+        </tbody>
             </table>
-        </div>
-    </section>
-    
-    <!-- Insights -->
-    <section class="insights">
-        <div class="insights-card">
-            <div class="insights-title">💡 优化建议</div>
-            <div class="insight-item">
-                <span class="insight-label insight-p0">P0</span>
-                skills目录缺少SKILL.md文件，需要补全
-            </div>
-            <div class="insight-item">
-                <span class="insight-label insight-p1">P1</span>
-                25个技能未标记VERSION（仅2个有版本号），建议统一版本管理
-            </div>
-            <div class="insight-item">
-                <span class="insight-label insight-p1">P1</span>
-                MEMORY.md技能清单与实际目录不同步：缺失kimiim、time-awareness、worker-safety
-            </div>
-            <div class="insight-item">
-                <span class="insight-label insight-p2">P2</span>
-                xiazi-diary-backup-20260307-233618 为旧备份，建议清理归档
-            </div>
         </div>
     </section>
     
     <footer class="footer">
-        小桂爷技能管理系统 | 24小时自动监控 | 仪表板生成时间: 2026-04-21 02:50
+        小桂爷技能管理系统 | 每日凌晨3:00自动巡检 | 上次更新: 2026/4/29 02:51:09
     </footer>
 </body>
 </html>
