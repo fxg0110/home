@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年5月10日</title>
+    <title>技能管理仪表板 | 2026年5月11日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -11,7 +11,6 @@
             --success: #059669;
             --warning: #D97706;
             --danger: #DC2626;
-            --info: #0891B2;
             --gray: #6B7280;
             --bg: #F3F4F6;
         }
@@ -28,17 +27,8 @@
         }
         .header h1 { font-size: 24px; font-weight: 700; }
         .header .date { font-size: 14px; opacity: 0.7; margin-top: 4px; }
-        .header .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-            background: var(--success);
-            color: white;
-        }
-
+        
+        /* Metrics */
         .metrics {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -51,51 +41,63 @@
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .metric-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
-        .metric-value { font-size: 36px; font-weight: 700; margin-top: 8px; }
-        .metric-change { font-size: 12px; margin-top: 4px; }
+        .metric-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .metric-change {
+            font-size: 12px;
+            margin-top: 4px;
+        }
         .metric-change.up { color: var(--success); }
         .metric-change.down { color: var(--danger); }
-
-        .health-overview {
+        
+        /* Charts */
+        .charts {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 0 32px 24px;
         }
-        .health-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .health-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-        .health-bar { height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-        .health-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
-        .health-fill.high { background: var(--success); }
-        .health-fill.medium { background: var(--warning); }
-        .health-fill.low { background: var(--danger); }
-        .health-value { font-size: 24px; font-weight: 700; }
-        .health-desc { font-size: 12px; color: var(--gray); margin-top: 4px; }
-
-        .charts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0 32px 24px; }
         .chart-card {
             background: white;
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
-
-        .table-section { padding: 0 32px 32px; }
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        /* Table */
+        .table-section {
+            padding: 0 32px 32px;
+        }
         .table-card {
             background: white;
             border-radius: 12px;
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .table-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
         th {
             text-align: left;
             padding: 12px;
@@ -106,7 +108,10 @@
             font-size: 11px;
             letter-spacing: 0.5px;
         }
-        td { padding: 16px 12px; border-bottom: 1px solid #E5E7EB; }
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #E5E7EB;
+        }
         tr:last-child td { border-bottom: none; }
         .badge {
             display: inline-block;
@@ -118,29 +123,13 @@
         .badge-new { background: #D1FAE5; color: var(--success); }
         .badge-update { background: #DBEAFE; color: var(--primary); }
         .badge-active { background: #D1FAE5; color: var(--success); }
-        .badge-none { background: #F3F4F6; color: var(--gray); }
-        .version { font-family: monospace; font-size: 12px; color: var(--gray); }
-
-        .insights {
-            padding: 0 32px 32px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .version {
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--gray);
         }
-        .insight-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .insight-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
-        .insight-list { list-style: none; }
-        .insight-list li { padding: 6px 0; font-size: 13px; border-bottom: 1px solid #F3F4F6; }
-        .insight-list li:last-child { border-bottom: none; }
-        .priority-p0 { color: var(--danger); font-weight: 600; }
-        .priority-p1 { color: var(--warning); font-weight: 600; }
-        .priority-p2 { color: var(--info); font-weight: 600; }
-
+        
+        /* Footer */
         .footer {
             text-align: center;
             padding: 24px;
@@ -151,93 +140,54 @@
 </head>
 <body>
     <header class="header">
-        <h1>🛠️ 技能管理仪表板 <span class="badge">已更新</span></h1>
-        <div class="date">2026年5月10日 02:50 | 自动生成 | 第5次更新</div>
+        <h1>🛠️ 技能管理仪表板</h1>
+        <div class="date">{{DATE}} | 自动生成</div>
     </header>
-
+    
     <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">30</div>
-            <div class="metric-change">排除嵌套/备份目录后统计</div>
+            <div class="metric-value" style="color: var(--primary)">34</div>
+            <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">新增技能</div>
             <div class="metric-value" style="color: var(--success)">+0</div>
-            <div class="metric-change up">5月9日</div>
+            <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">更新技能</div>
-            <div class="metric-value" style="color: var(--warning)">+1</div>
-            <div class="metric-change up">内容更新</div>
+            <div class="metric-value" style="color: var(--warning)">+0</div>
+            <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">活跃技能</div>
-            <div class="metric-value" style="color: var(--primary)">30</div>
-            <div class="metric-change">全部拥有 SKILL.md</div>
+            <div class="metric-label">使用技能</div>
+            <div class="metric-value" style="color: var(--primary)">待统计</div>
+            <div class="metric-change">今日</div>
         </div>
     </section>
-
-    <!-- Health Overview -->
-    <section class="health-overview">
-        <div class="health-card">
-            <div class="health-title">📄 文档覆盖率（SKILL.md）</div>
-            <div class="health-bar"><div class="health-fill high" style="width: 100%"></div></div>
-            <div class="health-value" style="color: var(--success)">100%</div>
-            <div class="health-desc">30/30 技能拥有 SKILL.md（已排除嵌套 skills/ 与备份目录）</div>
-        </div>
-        <div class="health-card">
-            <div class="health-title">🔖 版本标注率（VERSION）</div>
-            <div class="health-bar"><div class="health-fill low" style="width: 7%"></div></div>
-            <div class="health-value" style="color: var(--danger)">7%</div>
-            <div class="health-desc">2/30 技能声明了 version（ai-industry-express v1.2.0, skill-dashboard v1.0.0）</div>
-        </div>
-        <div class="health-card">
-            <div class="health-title">📝 描述完整率（README.md）</div>
-            <div class="health-bar"><div class="health-fill low" style="width: 23%"></div></div>
-            <div class="health-value" style="color: var(--danger)">23%</div>
-            <div class="health-desc">7/30 技能有 README.md（ai-industry-express, capability-evolver, novel-ai-apocalypse, stock-watcher, token-tracker, wechat-article-extractor, xiazi-diary）</div>
-        </div>
-    </section>
-
-    <!-- Charts -->
+    
+    <!-- Charts Placeholder -->
     <section class="charts">
         <div class="chart-card">
-            <div class="chart-title">📊 技能健康度矩阵</div>
-            <table>
-                <thead><tr><th>技能名称</th><th>SKILL.md</th><th>README.md</th><th>VERSION</th><th>完整度</th></tr></thead>
-                <tbody>
-                    <tr><td><strong>ai-industry-express</strong></td><td>✅</td><td>✅</td><td>✅ v1.2.0</td><td><span class="badge badge-active">完整</span></td></tr>
-                    <tr><td>skill-dashboard</td><td>✅</td><td>❌</td><td>✅ v1.0.0</td><td><span class="badge badge-update">缺README</span></td></tr>
-                    <tr><td>capability-evolver</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td>novel-ai-apocalypse</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td>stock-watcher</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td>token-tracker</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td>wechat-article-extractor</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td>xiazi-diary</td><td>✅</td><td>✅</td><td>❌</td><td><span class="badge badge-update">缺VERSION</span></td></tr>
-                    <tr><td colspan="5" style="text-align:center;color:var(--gray);">其余22个技能均缺少 README.md 和 VERSION（仅 SKILL.md ✅）</td></tr>
-                </tbody>
-            </table>
+            <div class="chart-title">技能使用频率</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
         </div>
         <div class="chart-card">
-            <div class="chart-title">🎯 今日工作回顾（5月9日）</div>
-            <table>
-                <thead><tr><th>时间</th><th>项目</th><th>状态</th></tr></thead>
-                <tbody>
-                    <tr><td>02:50</td><td>每日技能自省 + 仪表板更新（第4轮）</td><td><span class="badge badge-active">✅ 完成</span></td></tr>
-                    <tr><td>09:00</td><td>cron任务提醒：wechat-article-extractor检查、stock-watcher休市整理、小说写作计划确认</td><td><span class="badge badge-active">✅ 完成</span></td></tr>
-                    <tr><td>21:42</td><td>novel-ai-apocalypse 创意升华第十三轮（COLLISIONS.md / SUBLIMATION.md 更新）</td><td><span class="badge badge-active">✅ 完成</span></td></tr>
-                    <tr><td>全天</td><td>心跳引擎：持续运行但卡在项目2第1轮，未推进至下一轮</td><td><span class="badge badge-update">⚠️ 需排查</span></td></tr>
-                </tbody>
-            </table>
+            <div class="chart-title">技能增长趋势</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">技能健康度</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
         </div>
     </section>
-
+    
     <!-- Skills Table -->
     <section class="table-section">
         <div class="table-card">
-            <div class="table-title">📋 今日技能变更明细（5月9日）</div>
+            <div class="table-title">📋 今日技能变更明细</div>
             <table>
                 <thead>
                     <tr>
@@ -245,63 +195,19 @@
                         <th>版本</th>
                         <th>类型</th>
                         <th>变更内容</th>
-                        <th>文件数</th>
+                        <th>更新时间</th>
                         <th>状态</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>novel-ai-apocalypse</strong></td>
-                        <td><span class="version">v0.0.0</span></td>
-                        <td><span class="badge badge-update">内容更新</span></td>
-                        <td>COLLISIONS.md / SUBLIMATION.md 素材补充（第十三轮碰撞与升华）</td>
-                        <td>2</td>
-                        <td><span class="badge badge-active">活跃</span></td>
-                    </tr>
+                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
-
-    <!-- Insights -->
-    <section class="insights">
-        <div class="insight-card">
-            <div class="insight-title">🔴 P0 紧急优化（立即处理）</div>
-            <ul class="insight-list">
-                <li><span class="priority-p0">[P0]</span> 28个技能缺少 <code>VERSION</code> 声明，仅7%覆盖率——严重阻碍版本管理和依赖追踪</li>
-                <li><span class="priority-p0">[P0]</span> 心跳引擎自驱循环卡在「项目2：末日文学创作」第1轮，24小时重复同一状态，需立即排查推进逻辑</li>
-                <li><span class="priority-p0">[P0]</span> 技能目录存在嵌套 <code>skills/</code> 子目录（含重复 wechat-article-extractor），疑似残留，需清理避免歧义</li>
-            </ul>
-        </div>
-        <div class="insight-card">
-            <div class="insight-title">🟡 P1 重要优化（本周处理）</div>
-            <ul class="insight-list">
-                <li><span class="priority-p1">[P1]</span> 23个技能缺少 <code>README.md</code>，描述完整率仅23%，外部用户难以快速理解用途</li>
-                <li><span class="priority-p1">[P1]</span> capability-evolver 与 capability-evolver-pro 命名重叠，建议合并或明确分工（当前 pro 为 Claw0x 远程技能，原版为本地脚本）</li>
-                <li><span class="priority-p1">[P1]</span> xiazi-diary-backup 备份目录占用大量存储，建议归档策略或定期清理</li>
-            </ul>
-        </div>
-        <div class="insight-card">
-            <div class="insight-title">🔵 P2 建议优化（持续改进）</div>
-            <ul class="insight-list">
-                <li><span class="priority-p2">[P2]</span> 建立技能使用频率追踪机制，当前"活跃技能"指标依赖文档存在性而非实际调用</li>
-                <li><span class="priority-p2">[P2]</span> novel-ai-apocalypse 的 COLLISIONS.md 信息量极大（85KB+），建议按主题（角色/意象/情节线）拆分为子文档</li>
-                <li><span class="priority-p2">[P2]</span> 自省 cron 已修正投递频道为 kimi-claw，后续需在下一次运行时验证消息是否准确送达</li>
-            </ul>
-        </div>
-        <div class="insight-card">
-            <div class="insight-title">✨ 今日亮点</div>
-            <ul class="insight-list">
-                <li>📝 <strong>novel-ai-apocalypse</strong> 第十三轮升华完成：开篇第一句确定、四角色语音指纹化、三大意象复调闭环（针+摇篮曲+走廊）</li>
-                <li>🛠️ <strong>wechat-article-extractor</strong> 持续可用，内容提取链路保持完整</li>
-                <li>📊 <strong>stock-watcher</strong> 量化监控持续运转，休市期间自动切换为整理模式</li>
-                <li>🔄 自省 cron 频道修正：明确投递到 kimi-claw，避免消息错发至其他渠道</li>
-            </ul>
-        </div>
-    </section>
-
+    
     <footer class="footer">
-        小桂爷技能管理系统 | 24小时自动监控 | 仪表板 v1.0.0 | 交付频道: kimi-claw
+        小桂爷技能管理系统 | 24小时自动监控
     </footer>
 </body>
 </html>
