@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年5月15日</title>
+    <title>技能管理仪表板 | 2026年5月16日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --primary: #2251FF; --success: #059669; --warning: #D97706; --danger: #DC2626; --gray: #6B7280; --bg: #F3F4F6; }
@@ -39,13 +39,13 @@
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">2026年5月15日 | 第9轮自省 | 自动生成</div>
+        <div class="date">2026年5月16日 | 第10轮自省 | 自动生成</div>
     </header>
     
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">30</div>
+            <div class="metric-value" style="color: var(--primary)">29</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
@@ -60,7 +60,7 @@
         </div>
         <div class="metric-card">
             <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">4</div>
+            <div class="metric-value" style="color: var(--primary)">1</div>
             <div class="metric-change">今日</div>
         </div>
     </section>
@@ -73,16 +73,17 @@
     
     <section class="table-section" style="padding-bottom: 0;">
         <div class="table-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border: 1px solid #86EFAC;">
-            <div class="table-title" style="color: #059669;">📊 今日工作总结（2026-05-15）</div>
+            <div class="table-title" style="color: #059669;">📊 今日工作总结（2026-05-16）</div>
             <div style="font-size: 13px; line-height: 1.8; color: #374151;">
                 <p><strong>核心成果：</strong></p>
                 <ul style="margin-left: 20px; margin-bottom: 12px;">
-                    <li>AI Industry Express 日报第14轮成功执行，覆盖NVIDIA财报、Cerebras IPO等6条核心新闻</li>
-                    <li>日报推送链路稳定：钉钉✅ 飞书✅（OSS上传因环境缺失暂未恢复）</li>
-                    <li>技能库总量维持 30 个，全量清单已在仪表板维护</li>
+                    <li>每日技能自省第10轮成功执行（凌晨 02:50）</li>
+                    <li>仪表板 HTML 已生成：docs/skill-dashboard-2026-05-16.html</li>
+                    <li>技能库总量 29 个，今日无新增/更新/删除</li>
+                    <li>GitHub Pages 已同步更新（commit 待推送）</li>
                 </ul>
-                <p><strong>关键数据：</strong>新增技能 0 个 | 更新技能 0 个 | 使用技能 4 个 | 日报推送 1 次</p>
-                <p><strong>明日计划：</strong>第15轮日报 07:05 执行；修复heartbeat中断问题；评估novel-ai-apocalypse正文启动</p>
+                <p><strong>关键数据：</strong>新增技能 0 个 | 更新技能 0 个 | 使用技能 1 个 | 日报推送 0 次</p>
+                <p><strong>明日计划：</strong>第15轮 AI Industry Express 日报 07:05 执行；持续监控 heartbeat 状态</p>
             </div>
         </div>
     </section>
@@ -98,66 +99,49 @@
     </section>
     
     <section class="table-section" style="padding-top: 0;">
-        <div class="table-card" style="border-left: 4px solid #DC2626;">
-            <div class="table-title" style="color: #DC2626;">🔧 技能潜在优化机会点</div>
+        <div class="table-card">
+            <div class="table-title">🔧 优化机会点</div>
             <table>
-                <thead><tr><th style="width:15%">技能</th><th style="width:25%">问题/机会</th><th style="width:10%">影响</th><th style="width:40%">解决方案</th><th style="width:10%">优先级</th></tr></thead>
+                <thead><tr><th>优先级</th><th>技能名称</th><th>问题</th><th>建议</th></tr></thead>
                 <tbody>
-  <tr>
-    <td><strong>heartbeat</strong></td>
-    <td>上次心跳执行为5/9，已中断6天</td>
-    <td><span class="badge" style="background: #FEE2E2; color: #DC2626;">高</span></td>
-    <td>检查心跳脚本与OpenClaw cron的连通性，修复调度配置</td>
-    <td><span class="version" style="color: #DC2626; font-weight: 700;">P0</span></td>
-  </tr>
-
-  <tr>
-    <td><strong>novel-ai-apocalypse</strong></td>
-    <td>素材库已就绪但未启动正文写作</td>
-    <td><span class="badge" style="background: #FEE2E2; color: #DC2626;">高</span></td>
-    <td>利用COLLISIONS.md中的创意碰撞，启动第1章大纲生成</td>
-    <td><span class="version" style="color: #DC2626; font-weight: 700;">P0</span></td>
-  </tr>
-
-  <tr>
-    <td><strong>全局</strong></td>
-    <td>skills仓库大量untracked/ modified文件未提交</td>
-    <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
-    <td>整理现有变更，区分保留/清理/归档，统一提交或移除</td>
-    <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
-  </tr>
-
-  <tr>
-    <td><strong>全局</strong></td>
-    <td>仅2/30技能有VERSION文件，版本管理混乱</td>
-    <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
-    <td>为所有活跃技能补全VERSION文件，建立统一规范</td>
-    <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
-  </tr>
-
-  <tr>
-    <td><strong>skill-dashboard</strong></td>
-    <td>图表区域仍为占位符，无真实数据</td>
-    <td><span class="badge" style="background: #FEF3C7; color: #D97706;">低</span></td>
-    <td>接入历史git数据，用纯CSS或轻量JS渲染趋势图</td>
-    <td><span class="version" style="color: #D97706; font-weight: 700;">P2</span></td>
-  </tr>
-</tbody>
+                    <tr>
+                        <td><span class="badge" style="background: #FEE2E2; color: var(--danger);">P0</span></td>
+                        <td>heartbeat</td>
+                        <td>上次执行 5/9，已中断 7 天</td>
+                        <td>检查 cron 配置与脚本连通性，恢复自驱执行</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge" style="background: #FEE2E2; color: var(--danger);">P0</span></td>
+                        <td>github-publisher</td>
+                        <td>仪表板 HTML 需手动推送至 github-pages</td>
+                        <td>建立自动推送流水线，消除人工步骤</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge" style="background: #FEF3C7; color: var(--warning);">P1</span></td>
+                        <td>全员</td>
+                        <td>29 个技能中仅 2 个有 VERSION 文件</td>
+                        <td>批量补全 VERSION 文件，统一版本管理</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge" style="background: #FEF3C7; color: var(--warning);">P1</span></td>
+                        <td>全员</td>
+                        <td>仅 8 个技能有 README.md</td>
+                        <td>将 SKILL.md 内容提炼为 README.md，提升可发现性</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge" style="background: #DBEAFE; color: var(--primary);">P2</span></td>
+                        <td>novel-ai-apocalypse</td>
+                        <td>素材库就绪，正文写作仍未启动</td>
+                        <td>评估启动条件，安排写作计划</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </section>
     
-    <section class="table-section" style="padding-top: 0;">
-        <div class="table-card">
-            <div class="table-title">📁 全量技能清单（30个）</div>
-            <div style="font-size: 13px; color: #374151; line-height: 1.8;">
-                1. <strong>agent-skill-research</strong> <span class="version">v0.0.0</span> · 2. <strong>ai-industry-express</strong> <span class="version">v1.2.0</span> · 3. <strong>capability-evolver</strong> <span class="version">v0.0.0</span> · 4. <strong>capability-evolver-pro</strong> <span class="version">v0.0.0</span> · 5. <strong>cloud-brain-backup</strong> <span class="version">v0.0.0</span> · 6. <strong>evaluation-framework</strong> <span class="version">v0.0.0</span> · 7. <strong>feishu-bot</strong> <span class="version">v0.0.0</span> · 8. <strong>find-skills</strong> <span class="version">v0.0.0</span> · 9. <strong>github-publisher</strong> <span class="version">v0.0.0</span> · 10. <strong>heartbeat</strong> <span class="version">v0.0.0</span> · 11. <strong>kimiim</strong> <span class="version">v0.0.0</span> · 12. <strong>memory</strong> <span class="version">v0.0.0</span> · 13. <strong>minimax-tts-cn</strong> <span class="version">v0.0.0</span> · 14. <strong>multi-search-engine</strong> <span class="version">v0.0.0</span> · 15. <strong>novel-ai-apocalypse</strong> <span class="version">v0.0.0</span> · 16. <strong>scrape</strong> <span class="version">v0.0.0</span> · 17. <strong>skill-dashboard</strong> <span class="version">v1.0.0</span> · 18. <strong>skill-evaluator</strong> <span class="version">v0.0.0</span> · 19. <strong>skill-finder-cn</strong> <span class="version">v0.0.0</span> · 20. <strong>skillhub-preference</strong> <span class="version">v0.0.0</span> · 21. <strong>stock-watcher</strong> <span class="version">v0.0.0</span> · 22. <strong>tavily-search</strong> <span class="version">v0.0.0</span> · 23. <strong>time-awareness</strong> <span class="version">v0.0.0</span> · 24. <strong>token-tracker</strong> <span class="version">v0.0.0</span> · 25. <strong>tool-health</strong> <span class="version">v0.0.0</span> · 26. <strong>video-director</strong> <span class="version">v0.0.0</span> · 27. <strong>video-producer</strong> <span class="version">v0.0.0</span> · 28. <strong>wechat-article-extractor</strong> <span class="version">v0.0.0</span> · 29. <strong>worker-safety</strong> <span class="version">v0.0.0</span> · 30. <strong>xiazi-diary</strong> <span class="version">v0.0.0</span>
-            </div>
-        </div>
-    </section>
-    
     <footer class="footer">
-        小桂爷技能管理系统 | 每日 02:50 自动自省 | 第9轮
+        <p>虾籽 · 技能自省系统 · 每日 03:00 自动生成 · 第10轮</p>
+        <p style="margin-top: 4px;">更新时间: 2026-05-16 02:50 CST | 数据来源: ~/.openclaw/workspace/skills</p>
     </footer>
 </body>
 </html>
