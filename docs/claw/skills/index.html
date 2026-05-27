@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年5月27日</title>
+    <title>技能管理仪表板 | 2026年5月28日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -27,7 +27,7 @@
         }
         .header h1 { font-size: 24px; font-weight: 700; }
         .header .date { font-size: 14px; opacity: 0.7; margin-top: 4px; }
-        
+
         /* Metrics */
         .metrics {
             display: grid;
@@ -58,7 +58,7 @@
         }
         .metric-change.up { color: var(--success); }
         .metric-change.down { color: var(--danger); }
-        
+
         /* Charts */
         .charts {
             display: grid;
@@ -77,7 +77,7 @@
             font-weight: 600;
             margin-bottom: 16px;
         }
-        
+
         /* Table */
         .table-section {
             padding: 0 32px 32px;
@@ -128,7 +128,42 @@
             font-size: 12px;
             color: var(--gray);
         }
-        
+
+        /* Optimization Section */
+        .opt-section {
+            padding: 0 32px 32px;
+        }
+        .opt-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .opt-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .opt-item {
+            padding: 12px;
+            border-left: 3px solid var(--warning);
+            background: #FFFBEB;
+            margin-bottom: 8px;
+            border-radius: 0 8px 8px 0;
+        }
+        .opt-item.p0 { border-left-color: var(--danger); background: #FEF2F2; }
+        .opt-item.p1 { border-left-color: var(--warning); background: #FFFBEB; }
+        .opt-item.p2 { border-left-color: var(--primary); background: #EFF6FF; }
+        .opt-skill {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .opt-desc {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -141,14 +176,14 @@
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">{{DATE}} | 自动生成</div>
+        <div class="date">2026年5月28日 | 自动生成 | 第16轮自省</div>
     </header>
-    
+
     <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">34</div>
+            <div class="metric-value" style="color: var(--primary)">30</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
@@ -162,28 +197,34 @@
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
-            <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">待统计</div>
-            <div class="metric-change">今日</div>
+            <div class="metric-label">活跃技能</div>
+            <div class="metric-value" style="color: var(--primary)">5</div>
+            <div class="metric-change">近24h使用</div>
         </div>
     </section>
-    
+
     <!-- Charts Placeholder -->
     <section class="charts">
         <div class="chart-card">
-            <div class="chart-title">技能使用频率</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
+            <div class="chart-title">技能分类分布</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 13px;">
+                内容创作: 8 | 开发工具: 7<br>数据智能: 6 | 系统集成: 5<br>自动化: 4
+            </div>
         </div>
         <div class="chart-card">
             <div class="chart-title">技能增长趋势</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 13px;">
+                5月: +6 (ai-industry-express, minimax-tts-cn,<br>video-director, video-producer, wechat-article-extractor,<br>time-awareness, worker-safety, kimiim)
+            </div>
         </div>
         <div class="chart-card">
             <div class="chart-title">技能健康度</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 13px;">
+                健康: 24/30 (80%)<br>待完善: 4 | 待评估: 2
+            </div>
         </div>
     </section>
-    
+
     <!-- Skills Table -->
     <section class="table-section">
         <div class="table-card">
@@ -200,14 +241,99 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
+                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更（凌晨2:50，等待日间活动）</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
-    
+
+    <!-- Recent Activity -->
+    <section class="table-section">
+        <div class="table-card">
+            <div class="table-title">📋 近24小时技能使用记录（5月27日）</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>技能名称</th>
+                        <th>使用场景</th>
+                        <th>调用次数</th>
+                        <th>效果评估</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>novel-ai-apocalypse</td>
+                        <td>末日小说创作 - COLLISIONS/SUBLIMATION素材</td>
+                        <td>2</td>
+                        <td><span class="badge badge-active">✅ 高效</span></td>
+                    </tr>
+                    <tr>
+                        <td>heartbeat</td>
+                        <td>自驱任务引擎 - 量化盘前准备</td>
+                        <td>多轮</td>
+                        <td><span class="badge badge-active">✅ 稳定</span></td>
+                    </tr>
+                    <tr>
+                        <td>ai-industry-express</td>
+                        <td>AI行业日报生成（历史存档）</td>
+                        <td>-</td>
+                        <td><span class="badge badge-update">⏸️ 休眠</span></td>
+                    </tr>
+                    <tr>
+                        <td>stock-watcher</td>
+                        <td>量化交易盘前涨停复盘</td>
+                        <td>1</td>
+                        <td><span class="badge badge-active">✅ 活跃</span></td>
+                    </tr>
+                    <tr>
+                        <td>memory</td>
+                        <td>每日日志记录与检索</td>
+                        <td>持续</td>
+                        <td><span class="badge badge-active">✅ 核心</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Optimization Opportunities -->
+    <section class="opt-section">
+        <div class="opt-card">
+            <div class="opt-title">💡 技能集优化建议</div>
+            <div class="opt-item p1">
+                <div class="opt-skill">🎯 novel-ai-apocalypse → 执行态优化</div>
+                <div class="opt-desc">素材库(COLLISIONS.md 208KB, SUBLIMATION.md 100KB)已积累充分，建议从"素材收集"转入"章节写作"执行态。当前小说项目处于第1章准备阶段，需推进到实际产出。</div>
+            </div>
+            <div class="opt-item p1">
+                <div class="opt-skill">📊 ai-industry-express → 唤醒评估</div>
+                <div class="opt-desc">该技能已休眠多日。建议评估是否恢复日报生成，或将其能力合并到heartbeat的每日自驱任务中，避免技能闲置。</div>
+            </div>
+            <div class="opt-item p2">
+                <div class="opt-skill">🔧 skill-dashboard → 自动化程度提升</div>
+                <div class="opt-desc">当前仪表板仍需手动触发cron执行。建议完善generate.js，实现真正的零人工干预：自动检测git变更、自动生成、自动推送GitHub Pages。</div>
+            </div>
+            <div class="opt-item p2">
+                <div class="opt-skill">🗑️ xiazi-diary-backup-20260307-233618 → 归档清理</div>
+                <div class="opt-desc">此为历史备份目录，占用空间且不再更新。建议归档到独立存储后从工作区移除，保持skills目录整洁。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Summary -->
+    <section class="opt-section">
+        <div class="opt-card">
+            <div class="opt-title">📝 5月27日工作成果回顾</div>
+            <div style="font-size: 13px; line-height: 1.8; color: #374151;">
+                <p><strong>量化交易:</strong> 完成5月26日涨停复盘（46家涨停，双主线有色+PCB/半导体），梳理4只3板空间龙、8只2板，识别沪电股份公告风险。</p>
+                <p><strong>小说创作:</strong> 末日AI题材小说素材库持续扩充，COLLISIONS.md与SUBLIMATION.md双文档并行积累哲学碰撞与升华主题。</p>
+                <p><strong>系统运维:</strong> 心跳机制稳定运行，云脑备份每日自动执行（最新备份: 2026-05-28 02:05）。</p>
+                <p><strong>技能管理:</strong> 第15轮自省完成，仪表板已部署至GitHub Pages。当前技能生态健康度80%，内容创作类技能（8个）为最大品类。</p>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
-        小桂爷技能管理系统 | 24小时自动监控
+        小桂爷技能管理系统 | 24小时自动监控 | <a href="https://fxg0110.github.io/home/claw/skills/" style="color: var(--primary); text-decoration: none;">GitHub Pages 实时版</a>
     </footer>
 </body>
 </html>
