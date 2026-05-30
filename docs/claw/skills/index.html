@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能管理仪表板 | 2026年5月30日</title>
+    <title>技能管理仪表板 | 2026年5月31日</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -28,7 +28,6 @@
         .header h1 { font-size: 24px; font-weight: 700; }
         .header .date { font-size: 14px; opacity: 0.7; margin-top: 4px; }
         
-        /* Metrics */
         .metrics {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -59,7 +58,6 @@
         .metric-change.up { color: var(--success); }
         .metric-change.down { color: var(--danger); }
         
-        /* Charts */
         .charts {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -78,7 +76,6 @@
             margin-bottom: 16px;
         }
         
-        /* Table */
         .table-section {
             padding: 0 32px 32px;
         }
@@ -123,32 +120,87 @@
         .badge-new { background: #D1FAE5; color: var(--success); }
         .badge-update { background: #DBEAFE; color: var(--primary); }
         .badge-active { background: #D1FAE5; color: var(--success); }
+        .badge-pending { background: #F3F4F6; color: var(--gray); }
         .version {
             font-family: monospace;
             font-size: 12px;
             color: var(--gray);
         }
+        .health-bar {
+            width: 100%;
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .health-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .health-fill.good { background: var(--success); }
+        .health-fill.warn { background: var(--warning); }
+        .health-fill.bad { background: var(--danger); }
         
-        /* Footer */
         .footer {
             text-align: center;
             padding: 24px;
             font-size: 12px;
             color: var(--gray);
         }
+        .skill-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .skill-item {
+            background: #F9FAFB;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 13px;
+        }
+        .skill-item strong {
+            color: #111827;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .skill-meta {
+            color: var(--gray);
+            font-size: 11px;
+        }
+        .skill-meta span {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <h1>🛠️ 技能管理仪表板</h1>
-        <div class="date">{{DATE}} | 自动生成</div>
+        <div class="date">2026年5月31日 | 第15轮每日自省 | 自动生成</div>
     </header>
+    
+    <!-- Today's Summary -->
+    <section class="table-section" style="padding-bottom: 0;">
+        <div class="table-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border: 1px solid #86EFAC;">
+            <div class="table-title" style="color: #059669;">📊 今日工作总结（2026-05-31）</div>
+            <div style="font-size: 13px; line-height: 1.8; color: #374151;">
+                <p><strong>核心成果：</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 12px;">
+                    <li>完成第15轮每日技能自省（cron 凌晨2:50触发）</li>
+                    <li>检测到1个技能更新：novel-ai-apocalypse（创意素材库内容更新）</li>
+                    <li>技能库总数32个，文档覆盖率97%（31/32有SKILL.md）</li>
+                </ul>
+                <p><strong>关键数据：</strong>新增技能 0 个 | 更新技能 1 个 | 使用技能 1 个</p>
+                <p><strong>健康度：</strong>SKILL.md 97% | README 25% | VERSION 6% | 完整三件套 6%</p>
+                <p><strong>明日计划：</strong>继续监控技能变更，评估 README 和 VERSION 覆盖提升方案</p>
+            </div>
+        </div>
+    </section>
     
     <!-- Metrics -->
     <section class="metrics">
         <div class="metric-card">
             <div class="metric-label">总技能数</div>
-            <div class="metric-value" style="color: var(--primary)">34</div>
+            <div class="metric-value" style="color: var(--primary)">32</div>
             <div class="metric-change">累计部署</div>
         </div>
         <div class="metric-card">
@@ -158,29 +210,40 @@
         </div>
         <div class="metric-card">
             <div class="metric-label">更新技能</div>
-            <div class="metric-value" style="color: var(--warning)">+0</div>
+            <div class="metric-value" style="color: var(--warning)">+1</div>
             <div class="metric-change up">今日</div>
         </div>
         <div class="metric-card">
             <div class="metric-label">使用技能</div>
-            <div class="metric-value" style="color: var(--primary)">待统计</div>
-            <div class="metric-change">今日</div>
+            <div class="metric-value" style="color: var(--primary)">1</div>
+            <div class="metric-change">今日（自省）</div>
         </div>
     </section>
     
     <!-- Charts Placeholder -->
     <section class="charts">
         <div class="chart-card">
-            <div class="chart-title">技能使用频率</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
+            <div class="chart-title">技能文档健康度</div>
+            <div style="padding: 12px 0;">
+                <div style="margin-bottom: 8px;"><span style="font-size: 12px; color: var(--gray);">SKILL.md</span> <span style="float: right; font-size: 12px; font-weight: 600;">97%</span></div>
+                <div class="health-bar"><div class="health-fill good" style="width: 97%;"></div></div>
+            </div>
+            <div style="padding: 12px 0;">
+                <div style="margin-bottom: 8px;"><span style="font-size: 12px; color: var(--gray);">README</span> <span style="float: right; font-size: 12px; font-weight: 600;">25%</span></div>
+                <div class="health-bar"><div class="health-fill warn" style="width: 25%;"></div></div>
+            </div>
+            <div style="padding: 12px 0;">
+                <div style="margin-bottom: 8px;"><span style="font-size: 12px; color: var(--gray);">VERSION</span> <span style="float: right; font-size: 12px; font-weight: 600;">6%</span></div>
+                <div class="health-bar"><div class="health-fill bad" style="width: 6%;"></div></div>
+            </div>
         </div>
         <div class="chart-card">
             <div class="chart-title">技能增长趋势</div>
             <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[折线图区域]</div>
         </div>
         <div class="chart-card">
-            <div class="chart-title">技能健康度</div>
-            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[仪表盘区域]</div>
+            <div class="chart-title">技能类型分布</div>
+            <div style="height: 150px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">[饼图区域]</div>
         </div>
     </section>
     
@@ -200,14 +263,117 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td colspan="6" style="text-align: center; color: #999;">今日暂无变更</td></tr>
+                    <tr>
+                        <td><strong>novel-ai-apocalypse</strong></td>
+                        <td><span class="version">v0.1.0</span></td>
+                        <td><span class="badge badge-update">更新</span></td>
+                        <td>AI末世小说创意素材库内容更新（SUBLIMATION.md, COLLISIONS.md, README.md）</td>
+                        <td>2026-05-30</td>
+                        <td><span class="badge badge-active">活跃</span></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
     
+    <!-- Optimization Opportunities -->
+    <section class="table-section" style="padding-top: 0;">
+        <div class="table-card" style="border-left: 4px solid #DC2626;">
+            <div class="table-title" style="color: #DC2626;">🔧 技能潜在优化机会点</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">技能</th>
+                        <th style="width: 25%;">问题/机会</th>
+                        <th style="width: 10%;">影响</th>
+                        <th style="width: 40%;">解决方案</th>
+                        <th style="width: 10%;">优先级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>全局</strong></td>
+                        <td>README 覆盖率仅25%（8/32）</td>
+                        <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                        <td>为常用技能补全 README.md，提升可维护性</td>
+                        <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>全局</strong></td>
+                        <td>VERSION 覆盖率仅6%（2/32）</td>
+                        <td><span class="badge" style="background: #E0E7FF; color: #4F46E5;">低</span></td>
+                        <td>建立版本号自动递增机制，与git tag同步</td>
+                        <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>skill-dashboard</strong></td>
+                        <td>图表区域为占位符，无真实数据</td>
+                        <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                        <td>接入Chart.js，从git历史提取真实增长数据</td>
+                        <td><span class="version" style="color: #D97706; font-weight: 700;">P1</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>xiazi-diary-backup</strong></td>
+                        <td>旧备份目录占用空间</td>
+                        <td><span class="badge" style="background: #E0E7FF; color: #4F46E5;">低</span></td>
+                        <td>评估是否可以归档或删除旧备份</td>
+                        <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>全局</strong></td>
+                        <td>缺乏技能使用统计日志</td>
+                        <td><span class="badge" style="background: #FEF3C7; color: #D97706;">中</span></td>
+                        <td>增加技能调用记录，统计每日使用频率</td>
+                        <td><span class="version" style="color: #6B7280; font-weight: 700;">P2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <!-- Skill Inventory -->
+    <section class="table-section" style="padding-top: 0;">
+        <div class="table-card">
+            <div class="table-title">📦 技能清单（32个）</div>
+            <div class="skill-list">
+                <div class="skill-item"><strong>agent-skill-research</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>ai-industry-express</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>capability-evolver</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>capability-evolver-pro</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>cloud-brain-backup</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>evaluation-framework</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>feishu-bot</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>find-skills</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>github-publisher</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>heartbeat</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>kimiim</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>memory</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>minimax-tts-cn</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>multi-search-engine</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>novel-ai-apocalypse</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>scrape</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>skill-dashboard</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>skill-evaluator</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>skill-finder-cn</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>skillhub-preference</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>stock-watcher</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>tavily-search</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>time-awareness</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>token-tracker</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>tool-health</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>video-director</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>video-producer</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ✅</span></div></div>
+                <div class="skill-item"><strong>wechat-article-extractor</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>worker-safety</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>xiazi-diary</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ✅</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>xiazi-diary-backup-20260307-233618</strong><div class="skill-meta"><span>SKILL.md ✅</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+                <div class="skill-item"><strong>skills</strong><div class="skill-meta"><span>SKILL.md ❌</span><span>README ❌</span><span>VERSION ❌</span></div></div>
+            </div>
+        </div>
+    </section>
+    
     <footer class="footer">
-        小桂爷技能管理系统 | 24小时自动监控
+        小桂爷技能管理系统 | 24小时自动监控 | 第15轮自省
     </footer>
 </body>
 </html>
